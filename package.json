@@ -1,0 +1,22 @@
+{
+  "name": "node_js_starter",
+  "version": "1.0.0",
+  "description": "NodeJS Starter",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Petersen",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "dotenv": "^14.2.0",
+    "mysql": "^2.18.1",
+    "prompt": "^1.2.0",
+    "update": "^0.7.4"
+  }
+}
