@@ -18,10 +18,10 @@ const APIRoutes = require("./api/create_record");
 const port = process.env.PORT || 3000;
 
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "JpTWdGEGbhE_Ju9+E",
-  database: "items",
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: "NodeJS_Starter",
 });
 
 //make DB connection
