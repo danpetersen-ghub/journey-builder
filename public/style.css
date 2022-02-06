@@ -1,4 +1,82 @@
-body {
-  background-color: black;
-  color: white;
+:root {
+  /* CSS HEX */
+  --viridian-green: #119da4ff;
+  --teal-blue: #0c7489ff;
+  --midnight-green-eagle-green: #003d5bff;
+  --rich-black-fogra-39: #040404ff;
+  --OffWhite: #fff;
+
+  /* CSS HEX */
+  --sunray: #edae49ff;
+  --brick-red: #d1495bff;
+  --metallic-seaweed: #00798cff;
+  --lapis-lazuli: #30638eff;
+  --indigo-dye: #003d5bff;
+}
+.row > * {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: 0% !important;
+  padding-left: 0% !important;
+  margin-top: 0% !important;
+}
+
+.container-fluid {
+  margin: 0% !important;
+  padding: 0% !important;
+  width: 100% !important;
+}
+.row {
+  margin: 0% !important;
+  padding: 0% !important;
+  width: 100% !important;
+}
+.container-fluid body {
+  background-color: var(--rich-black-fogra-39);
+  color: var(--OffWhite);
+}
+.navbar {
+  background-color: var(--midnight-green-eagle-green);
+  color: var(--OffWhite);
+  vertical-align: middle;
+  text-align: center !important;
+  height: 100vh;
+  padding: 30px;
+}
+.navitem {
+  width: 100%;
+  margin-bottom: 40px;
+}
+.navbox {
+  margin: 30% 30%;
+}
+.content-container {
+  background-color: var(--OffWhite);
+  color: var(--midnight-green-eagle-green);
+  vertical-align: middle;
+  text-align: center;
+  height: 100vh;
+  padding: 30px;
+  padding-top: 20%;
+}
+
+.login-btn {
+  border-radius: 25px;
+  background-color: var(--midnight-green-eagle-green);
+  color: var(--OffWhite);
+  padding: 5px 40px;
+}
+
+.login-btn:hover {
+  background-color: var(--OffWhite);
+  color: var(--teal-blue);
+}
+i {
+  font-size: 40px;
+  color: var(--OffWhite);
+  text-align: center;
+}
+i:hover {
+  color: var(--teal-blue);
 }
