@@ -4,6 +4,9 @@ const app = express();
 
 //const test = require('./test').default
 
+//Templates
+const ejs = require("ejs");
+
 //Data
 const mysql = require("mysql");
 
