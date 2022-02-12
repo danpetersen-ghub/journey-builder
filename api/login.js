@@ -12,17 +12,9 @@ router.post("/api/login", function (req, res) {
   console.log(`Incoming request: `);
   console.log(req.body);
 
-  //SEND DATA TO DATABASE
-  // connection.connect(function (err) {
-  //   if (err) throw err;
-  //   console.log("Connected!");
-  //   var sql = `INSERT INTO items (column1, column1) VALUES (${req.body[0]}, ${req.body[1]})`;
-  //   con.query(sql, function (err, result) {
-  //     if (err) throw err;
-  //     console.log("1 record inserted");
-  //   });
-  // });
-  if (re) res.json({ success: true });
+  if (req.body[username] === "admin" && req.body[password] === "123") {
+    res.json(app.ejs);
+  }
 });
 
 const data = require("../template.json");

@@ -2,10 +2,12 @@
 node_modules
 test.js
 .env
-
+./database/sqltest.js
+NodeJS Starter\database\sqltest.js
 
 # ignore ALL .log files
 *.log
 
 # ignore ALL files in ANY directory named temp
 temp/ 
+database/sqltest.js
