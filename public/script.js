@@ -9,22 +9,22 @@ fetch("/json")
   // Here we have the request body as a JSON object ready to be used:
   .then((templateData) => {
     console.log(templateData);
-    document.getElementById(
-      "data"
-    ).innerHTML = `<label>Firstname: </label><span>${templateData.firstname}</span><br
-    <label>Lastname: </label><span>${templateData.lastname} </span>`;
+    // document.getElementById(
+    //   "data"
+    // ).innerHTML = `<label>Firstname: </label><span>${templateData.firstname}</span><br
+    // <label>Lastname: </label><span>${templateData.lastname} </span>`;
   })
   .catch(console.error);
 
-function sendForm() {
+function sendLoginCreds() {
   event.preventDefault();
 
-  let firstname = document.getElementById("firstname").value;
-  let lastname = document.getElementById("lastname").value;
+  let username = document.getElementById("username").value;
+  let password = document.getElementById("password").value;
 
   let payload = {
-    firstName: firstname,
-    lastName: lastname,
+    username: username,
+    password: password,
   };
 
   //send data to api endpoint
@@ -34,22 +34,24 @@ function sendForm() {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(payload), //{"firstName":"John","lastName":"Doe"}
+    body: JSON.stringify(payload), //{"username":"johndoe","password":"pass"}
   };
 
-  //send data to api endpoint
-  const response = fetch("/api/create/record/v1", headers);
+  //send data to api endpoint to login
+  const response = fetch("/api/login", headers);
+
   //log out the response
   response
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+      document.getElementById("output").innerText = data.message;
     });
 }
 
-//onformsubmit
-let submit = document.getElementById("submit");
-submit.addEventListener("click", function () {
+//onLoginSubmit
+let loginButton = document.getElementById("submit");
+loginButton.addEventListener("click", function () {
   console.log("submit hit");
-  sendForm(DATA);
+  sendLoginCreds(DATA);
 });
