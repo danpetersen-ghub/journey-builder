@@ -12,8 +12,10 @@ router.post("/api/login", function (req, res) {
   console.log(`Incoming request: `);
   console.log(req.body);
 
-  if (req.body[username] === "admin" && req.body[password] === "123") {
-    res.json(app.ejs);
+  if (req.body.username === "admin" && req.body.password === "123") {
+    res.json({ success: true, message: "welcome greatest avenger" });
+  } else {
+    res.json({ success: true, message: "incorrect details" });
   }
 });
 
