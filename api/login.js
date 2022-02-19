@@ -2,6 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
+const data = require("../template.json");
 
 console.log("login scripts loaded...");
 
@@ -13,17 +14,19 @@ router.post("/api/login", function (req, res) {
   console.log(req.body);
 
   if (req.body.username === "admin" && req.body.password === "123") {
-    res.json({ success: true, message: "welcome greatest avenger" });
+    res.json({
+      success: true,
+      message: "welcome greatest avenger",
+      data: data,
+    });
   } else {
     res.json({ success: true, message: "incorrect details" });
   }
 });
 
-const data = require("../template.json");
-
 //seed DATA
-router.get("/json", function (req, res) {
-  res.json(data);
-});
+//   router.get("/json", function (req, res) {
+//     res.json(data);
+//   });
 
 module.exports = router;

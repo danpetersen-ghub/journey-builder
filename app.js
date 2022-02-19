@@ -43,6 +43,7 @@ app.use("", express.static(__dirname + "/public"));
 app.use("", APIRoutes);
 app.use("", APIRouteLogin);
 
+//Send Index HTML
 app.get("", function (req, res) {
   res.render("index");
 });
