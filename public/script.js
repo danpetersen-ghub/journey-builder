@@ -2,20 +2,6 @@ console.log(`We are Live with Starter App..`);
 
 const DATA = [];
 
-// Make an HTTP request to the /json/ route of our express server:
-// fetch("/json")
-//   // Get the request body and convert to JSON:
-//   .then((res) => res.json())
-//   // Here we have the request body as a JSON object ready to be used:
-//   .then((templateData) => {
-//     console.log(templateData);
-//     // document.getElementById(
-//     //   "data"
-//     // ).innerHTML = `<label>Firstname: </label><span>${templateData.firstname}</span><br
-//     // <label>Lastname: </label><span>${templateData.lastname} </span>`;
-//   })
-//   .catch(console.error);
-
 function sendLoginCreds() {
   event.preventDefault();
 
@@ -44,14 +30,28 @@ function sendLoginCreds() {
   response
     .then((response) => response.json())
     .then((responseJSON) => {
-      console.log(responseJSON);
+      console.log(responseJSON); //{"Data":{}}, "success": true, "message":"loremIpsum" }
       document.getElementById("output").innerText = responseJSON.message;
       if (responseJSON.success === true) {
+        loadApplication(responseJSON.data);
         contentArea();
         displayDataTable(responseJSON.data);
         addToNavUI(formNavItem);
+        addToNavUI(dashboardNavItem);
       }
     });
+}
+
+function loadApplication(data) {
+  displayDataTable(data);
+  addToNavUI(formNavItem);
+  addToNavUI(dashboardNavItem);
+  document
+    .getElementsByClassName("dashboard")[0]
+    .addEventListener("click", displayDataTable);
+  document
+    .getElementsByClassName("form")[0]
+    .addEventListener("click", showForm);
 }
 
 //onLoginSubmit
@@ -63,6 +63,7 @@ loginButton.addEventListener("click", function () {
 
 //Update UI with DB Saved data
 function displayDataTable(records) {
+  contentArea();
   let tableRows = "";
   for (var i = 0; i < records.length; i++) {
     records[i].tableRows += `  <tr>
@@ -97,14 +98,30 @@ function contentArea(content) {
 //update Nav
 function addToNavUI(apps) {
   let nav = document.getElementsByClassName("navbox")[0];
-  nav.appendChild(apps);
+  nav.innerHTML += apps;
 }
 
 let formNavItem = `
                   <div class="navitem">
                   <a href="#">
-                    <i class="far fa-question-circle form"></i>          
+                  <i class="fa-solid fa-square-plus form"></i>      
                   </a>
                   `;
+let dashboardNavItem = `
+  <div class="navitem">
+  <a href="#">
+  <i class="fa-solid fa-table dashboard"></i>    
+  </a>
+  `;
 
-function Form() {}
+function showForm() {
+  contentArea();
+  let FormHTML = `                <label for="col1">Username</label>
+  <input type="text" id="username" name="Username" /><br /><br />
+
+  <label for="password">Password</label>
+  <input type="text" id="password" name="password" /><br /><br />
+
+  <button class="login-btn" id="submit" type="button" name="Login" /> Login </button>`;
+  contentArea(FormHTML);
+}
