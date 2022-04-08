@@ -26,12 +26,12 @@ const router = express.Router();
 //SERVER
 const port = process.env.PORT || 3000;
 
-//make DB connection
-DATABASE.connect(function (err) {
-  //show errors
-  if (err) throw err;
-  console.log("Connected to MySQL DB");
-});
+// //make DB connection
+// DATABASE.connect(function (err) {
+//   //show errors
+//   if (err) throw err;
+//   console.log("Connected to MySQL DB");
+// });
 
 function insertToDB(sql) {
   DATABASE.query(sql, function (err, result) {
@@ -52,6 +52,8 @@ app.use("", APIRoutes);
 
 app.use("", APIRouteLogin);
 
+app.get("/api/all/data", getData);
+
 //Send Index HTML
 app.get("", function (req, res) {
   res.render("index");
@@ -61,3 +63,17 @@ app.get("", function (req, res) {
 app.listen(port, function () {
   console.log("running: http://127.0.0.1:3000/ or http://localhost:3000/");
 });
+
+function getData(req, res) {
+  //make DB connection
+  DATABASE.connect(function (err, res) {
+    DATABASE.query("SELECT * FROM items;", function (err, result, res) {
+      if (err) throw err;
+      console.log(result);
+      res.send(result);
+    });
+
+    //show errors
+    if (err) throw err;
+  });
+}

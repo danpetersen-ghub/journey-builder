@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
-router.post("/api/create/record/v1", function (req, res) {
+router.all("/api/create/record/v1", function (req, res) {
   console.log(`Incoming request: `);
   console.log(req.body);
 
@@ -19,11 +19,13 @@ router.post("/api/create/record/v1", function (req, res) {
   res.json({ success: true, status: 200 });
 });
 
-function insertToDB(sql) {
-  DATABASE.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("1 record inserted");
-    console.log(result);
+async function insertToDB(sql) {
+  await DATABASE.connect(function (err, res) {
+    DATABASE.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("1 record inserted");
+      console.log(result);
+    });
   });
 }
 

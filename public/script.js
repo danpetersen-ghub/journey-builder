@@ -164,3 +164,26 @@ function createRecord(value1, value2) {
       console.log(responseJSON);
     });
 }
+
+function getAllRecords() {
+  //send data to api endpoint
+  const headers = {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  };
+
+  //send data to api endpoint to get data
+  const response = fetch("/api/all/data", headers);
+  console.log("Sent Req to: /api/all/data");
+
+  //log out the response, then log response
+  response
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      //{"Data":{}}, "success": true, "message":"loremIpsum" }
+      console.log(responseJSON);
+    });
+}
