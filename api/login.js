@@ -4,8 +4,6 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const data = require("../template.json");
 
-console.log("login scripts loaded...");
-
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
@@ -13,7 +11,7 @@ router.post("/api/login", function (req, res) {
   console.log(`Incoming request: `);
   console.log(req.body);
 
-  if (req.body.username === "admin" && req.body.password === "123") {
+  if (req.body.username == "admin" && req.body.password === "123") {
     res.json({
       success: true,
       message: "welcome greatest avenger",
@@ -23,10 +21,7 @@ router.post("/api/login", function (req, res) {
     res.json({ success: true, message: "incorrect details" });
   }
 });
-
-//seed DATA
-//   router.get("/json", function (req, res) {
-//     res.json(data);
-//   });
+console.log("login scripts loaded...");
+console.log("Endpoint available: http://127.0.0.1:3000/api/create/record/v1");
 
 module.exports = router;

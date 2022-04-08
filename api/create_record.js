@@ -3,8 +3,6 @@ const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
 
-console.log("api scripts loaded...");
-
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
@@ -13,18 +11,24 @@ router.post("/api/create/record/v1", function (req, res) {
   console.log(req.body);
 
   //SEND DATA TO DATABASE
-  connection.connect(function (err) {
-    if (err) throw err;
-    console.log("Connected!");
-    var sql = `INSERT INTO items (column1, column1) VALUES (${req.body[0]}, ${req.body[1]})`;
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted");
-    });
-  });
+  var sql = `INSERT INTO items (column1, column2) VALUES (${req.body[0]}, ${req.body[1]})`;
 
-  res.json({ success: true });
+  insertToDB(sql);
+
+  //server response to API call
+  res.json({ success: true, status: 200 });
 });
+
+function insertToDB(sql) {
+  DATABASE.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record inserted");
+    console.log(result);
+  });
+}
+
+console.log("api scripts loaded...");
+console.log("Endpoint available: http://127.0.0.1:3000/api/login");
 
 const data = require("../template.json");
 

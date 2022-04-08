@@ -26,23 +26,25 @@ function sendLoginCreds() {
   //send data to api endpoint to login
   const response = fetch("/api/login", headers);
 
-  //log out the response
+  //log out the response, then log response
   response
     .then((response) => response.json())
     .then((responseJSON) => {
-      console.log(responseJSON); //{"Data":{}}, "success": true, "message":"loremIpsum" }
+      //{"Data":{}}, "success": true, "message":"loremIpsum" }
+      console.log(responseJSON);
+
+      //Display Status/Login message
       document.getElementById("output").innerText = responseJSON.message;
+
       if (responseJSON.success === true) {
+        //load app
         loadApplication(responseJSON.data);
-        contentArea();
-        displayDataTable(responseJSON.data);
-        addToNavUI(formNavItem);
-        addToNavUI(dashboardNavItem);
       }
     });
 }
 
 function loadApplication(data) {
+  contentArea();
   displayDataTable(data);
   addToNavUI(formNavItem);
   addToNavUI(dashboardNavItem);
@@ -108,20 +110,57 @@ let formNavItem = `
                   </a>
                   `;
 let dashboardNavItem = `
-  <div class="navitem">
-  <a href="#">
-  <i class="fa-solid fa-table dashboard"></i>    
-  </a>
-  `;
+                  <div class="navitem">
+                  <a href="#">
+                  <i class="fa-solid fa-table dashboard"></i>    
+                  </a>
+                  `;
 
 function showForm() {
   contentArea();
-  let FormHTML = `                <label for="col1">Username</label>
-  <input type="text" id="username" name="Username" /><br /><br />
+  let FormHTML = `
+                    <label for="col1">Column 1</label>
+                    <input type="text" id="column1" name="col1" /><br /><br />
 
-  <label for="password">Password</label>
-  <input type="text" id="password" name="password" /><br /><br />
+                    <label for="password">Column 2</label>
+                    <input type="text"  id="column2" name="col1" /><br /><br />
 
-  <button class="login-btn" id="submit" type="button" name="Login" /> Login </button>`;
+                    <button class="login-btn" id="create" type="button" name="create" /> Create </button>
+                    `;
   contentArea(FormHTML);
+  document.getElementById("create").addEventListener("click", function () {
+    let column1 = document.getElementById("column1").value;
+    let column2 = document.getElementById("column2").value;
+
+    createRecord(column1, column2);
+  });
+}
+
+function createRecord(value1, value2) {
+  let payload = {
+    column1: value1,
+    column2: value2,
+  };
+
+  //send data to api endpoint
+  const headers = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload), //{"column1":"abc","column2":"xyz"}
+  };
+
+  //send data to api endpoint to login
+  const response = fetch("/api/create/record/v1", headers);
+  console.log("Sent Req to: /api/create/record/v1");
+
+  //log out the response, then log response
+  response
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      //{"Data":{}}, "success": true, "message":"loremIpsum" }
+      console.log(responseJSON);
+    });
 }
