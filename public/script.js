@@ -1,7 +1,5 @@
 console.log(`We are Live with Starter App..`);
 
-const DATA = [];
-
 function sendLoginCreds() {
   event.preventDefault();
 
@@ -50,7 +48,7 @@ function loadApplication(data) {
   addToNavUI(dashboardNavItem);
   document
     .getElementsByClassName("dashboard")[0]
-    .addEventListener("click", displayDataTable);
+    .addEventListener("click", getAllRecords);
   document
     .getElementsByClassName("form")[0]
     .addEventListener("click", showForm);
@@ -60,7 +58,7 @@ function loadApplication(data) {
 let loginButton = document.getElementById("submit");
 loginButton.addEventListener("click", function () {
   console.log("submit hit");
-  sendLoginCreds(DATA);
+  sendLoginCreds();
 });
 
 //Update UI with DB Saved data
@@ -68,26 +66,26 @@ function displayDataTable(records) {
   contentArea();
   let tableRows = "";
   for (var i = 0; i < records.length; i++) {
-    records[i].tableRows += `  <tr>
-                      <th scope="row">${i}</th>
-                      <td>${records[i].property1}</td>
-                      <td>${records[i].property2}</td>
-                  </tr>`;
+    tableRows += `  <tr>
+                                  <th scope="row">${records[i].id}</th>
+                                  <td>${records[i].column1}</td>
+                                  <td>${records[i].column2}</td>
+                              </tr>`;
   }
   let tableHTML = `
-  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Column1</th>
-      <th scope="col">Column2</th>
-    </tr>
-  </thead>
-  <tbody>
-  ${tableRows}
-  </tbody>
-  </table>
-  `;
+                    <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Column1</th>
+                        <th scope="col">Column2</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    ${tableRows}
+                    </tbody>
+                    </table>
+                    `;
   contentArea(tableHTML);
 }
 
@@ -153,8 +151,8 @@ function createRecord(value1, value2) {
   };
 
   //send data to api endpoint to login
-  const response = fetch("/api/create/record/v1", headers);
-  console.log("Sent Req to: /api/create/record/v1");
+  const response = fetch("/api/data", headers);
+  console.log("Sent Req to: /api/data");
 
   //log out the response, then log response
   response
@@ -183,7 +181,6 @@ function getAllRecords() {
   response
     .then((response) => response.json())
     .then((responseJSON) => {
-      //{"Data":{}}, "success": true, "message":"loremIpsum" }
-      console.log(responseJSON);
+      displayDataTable(responseJSON);
     });
 }

@@ -21,7 +21,7 @@ router.post("/api/login", function (req, res) {
     res.json({ success: true, message: "incorrect details" });
   }
 });
-console.log("login scripts loaded...");
-console.log("Endpoint available: http://127.0.0.1:3000/api/create/record/v1");
+//console.log("login scripts loaded...");
+console.log("API Endpoint Available: http://127.0.0.1:3000/api/login");
 
 module.exports = router;
