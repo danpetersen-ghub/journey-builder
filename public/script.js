@@ -43,7 +43,8 @@ function sendLoginCreds() {
 
 function loadApplication(data) {
   contentArea();
-  displayDataTable(data);
+  //displayDataTable(data);
+  getAllRecords();
   addToNavUI(formNavItem);
   addToNavUI(dashboardNavItem);
   document
@@ -116,7 +117,7 @@ let dashboardNavItem = `
 
 function showForm() {
   contentArea();
-  let FormHTML = `
+  let FormHTML = `<div class="margin-top">
                     <label for="col1">Column 1</label>
                     <input type="text" id="column1" name="col1" /><br /><br />
 
@@ -124,7 +125,7 @@ function showForm() {
                     <input type="text"  id="column2" name="col1" /><br /><br />
 
                     <button class="login-btn" id="create" type="button" name="create" /> Create </button>
-                    `;
+                    <div> `;
   contentArea(FormHTML);
   document.getElementById("create").addEventListener("click", function () {
     let column1 = document.getElementById("column1").value;
