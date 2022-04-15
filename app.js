@@ -12,6 +12,11 @@ const mysql = require("mysql");
 
 const DATABASE = require("./database/connection");
 
+DATABASE.connect(function (err, a, b) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
 //API
 const bodyParser = require("body-parser");
 const router = express.Router();
