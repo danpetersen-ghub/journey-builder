@@ -22,7 +22,7 @@ const bodyParser = require("body-parser");
 const router = express.Router();
 
 //SERVER
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 //API Routes
 let APIRoutes = require("./api/create_record");
