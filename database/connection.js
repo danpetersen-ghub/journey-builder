@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 
 const DATABASE = mysql.createConnection({
-  host: process.env.DB_HOST,
+  host: process.env.DB_HOST || CLEARDB_DATABASE_URL,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: "NodeJS_Starter",
