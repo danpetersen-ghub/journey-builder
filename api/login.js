@@ -11,14 +11,14 @@ router.post("/api/login", function (req, res) {
   console.log(`Incoming request: `);
   console.log(req.body);
 
-  if (req.body.username == "admin" && req.body.password === "123") {
+  if (req.body.username === "admin" && req.body.password === "123") {
     res.json({
       success: true,
       message: "welcome greatest avenger",
       data: data,
     });
   } else {
-    res.json({ success: true, message: "incorrect details" });
+    res.json({ success: false, message: "incorrect details" });
   }
 });
 //console.log("login scripts loaded...");
