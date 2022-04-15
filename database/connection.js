@@ -8,10 +8,10 @@ const mysql = require("mysql");
 // });
 
 const DATABASE = mysql.createConnection({
-  host: CLEARDB_DB_HOST,
-  user: CLEARDB_DB_USER,
-  password: CLEARDB_DB_PASS,
-  database: CLEARDB_DB_NAME,
+  host: process.env.CLEARDB_DB_HOST,
+  user: process.env.CLEARDB_DB_USER,
+  password: process.env.CLEARDB_DB_PASS,
+  database: process.env.CLEARDB_DB_NAME,
 });
 
 module.exports = DATABASE;
