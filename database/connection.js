@@ -5,6 +5,7 @@ const mysql = require("mysql");
 //   user: process.env.DB_USER || CLEARDB_DB_USER,
 //   password: process.env.DB_PASS || CLEARDB_DB_PASS,
 //   database: "NodeJS_Starter" || CLEARDB_DB_NAME,
+//
 // });
 
 const DATABASE = mysql.createConnection({
