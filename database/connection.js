@@ -7,7 +7,8 @@ const mysql = require("mysql");
 //   database: "NodeJS_Starter",
 // });
 
-const DATABASE = mysql.createConnection({
+const DATABASE = mysql.createPool({
+  connectionLimit: 10,
   host: process.env.CLEARDB_DB_HOST,
   user: process.env.CLEARDB_DB_USER,
   password: process.env.CLEARDB_DB_PASS,
