@@ -31,8 +31,9 @@ describe("Create Record", () => {
     cy.get("input[id='password']").type("123");
     cy.get("button[id='submit']").click();
     cy.get("i[class='fa-solid fa-square-plus form']").click();
-    cy.contains("Column 1");
-    cy.contains("Column 2");
+    cy.wait(500);
+    cy.get("label[for=col1]").contains("Column 1");
+    cy.get("label[for=col2]").contains("Column 2");
     cy.get("input[id='column1']").type("E2E TEST");
     cy.get("input[id='column2']").type("E2E TEST");
     cy.get("button[id='create']").click();

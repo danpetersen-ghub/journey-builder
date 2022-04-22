@@ -121,7 +121,7 @@ function showForm() {
                     <label for="col1">Column 1</label>
                     <input type="text" id="column1" name="col1" /><br /><br />
 
-                    <label for="password">Column 2</label>
+                    <label for="col2">Column 2</label>
                     <input type="text"  id="column2" name="col1" /><br /><br />
 
                     <button class="login-btn" id="create" type="button" name="create" /> Create </button>

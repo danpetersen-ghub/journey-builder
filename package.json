@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "npx cypress run  -- --record --spec",
+    "test": "cypress run --browser chrome",
     "test-browser": "./node_modules/.bin/cypress open",
     "setup-db": "node NodeJS Starter/database/createdb.js && NodeJS Starter/database/createtable.js "
   },
