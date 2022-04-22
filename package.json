@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
+    "dev": "nodemon app.js && npm run test-browser ",
     "test": "cypress run --browser chrome",
     "test-browser": "./node_modules/.bin/cypress open",
     "setup-db": "node NodeJS Starter/database/createdb.js && NodeJS Starter/database/createtable.js "
@@ -22,7 +22,7 @@
     "dotenv": "^14.2.0",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
-    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
     "n8n": "^0.172.0",
     "prompt": "^1.3.0",
     "update": "^0.7.4"

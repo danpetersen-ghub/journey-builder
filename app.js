@@ -8,7 +8,7 @@ require("dotenv").config();
 const ejs = require("ejs");
 
 //Database
-const mysql = require("mysql");
+const mysql = require("mysql2/promise");
 
 const DATABASE = require("./database/connection");
 
@@ -42,5 +42,7 @@ app.get("", function (req, res) {
 
 //Go Live with Server
 app.listen(port, function () {
-  console.log(`running: http://127.0.0.1:3000/ or ${process.env.URL}`);
+  console.log(
+    `running: http://127.0.0.1:3000/ or ${process.env.CYPRESS_BASE_URL}`
+  );
 });

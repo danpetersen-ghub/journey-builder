@@ -2,7 +2,7 @@
 
 describe("Bad User Credentials", () => {
   it("Visits NodeJS Starter", () => {
-    cy.visit("https://nodestarter-prod.herokuapp.com/");
+    cy.visit("/");
     cy.contains("Starter App");
     cy.get("input[id='username']").type("Hello World");
     cy.get("input[id='password']").type("ABC123");
@@ -13,7 +13,7 @@ describe("Bad User Credentials", () => {
 
 describe("Admin Login", () => {
   it("Visits NodeJS Starter", () => {
-    cy.visit("https://nodestarter-prod.herokuapp.com/");
+    cy.visit("/");
     cy.contains("Starter App");
     cy.get("input[id='username']").type("admin");
     cy.get("input[id='password']").type("123");
@@ -25,7 +25,7 @@ describe("Admin Login", () => {
 
 describe("Create Record", () => {
   it("Visits NodeJS Starter", () => {
-    cy.visit("https://nodestarter-prod.herokuapp.com/");
+    cy.visit("/");
     cy.contains("Starter App");
     cy.get("input[id='username']").type("admin");
     cy.get("input[id='password']").type("123");
