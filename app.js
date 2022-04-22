@@ -42,5 +42,5 @@ app.get("", function (req, res) {
 
 //Go Live with Server
 app.listen(port, function () {
-  console.log("running: http://127.0.0.1:3000/ or http://localhost:3000/");
+  console.log(`running: http://127.0.0.1:3000/ or ${process.env.URL}`);
 });

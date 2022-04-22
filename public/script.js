@@ -125,7 +125,7 @@ function showForm() {
                     <input type="text"  id="column2" name="col1" /><br /><br />
 
                     <button class="login-btn" id="create" type="button" name="create" /> Create </button>
-                    <div> `;
+                    <div>`;
   contentArea(FormHTML);
   document.getElementById("create").addEventListener("click", function () {
     let column1 = document.getElementById("column1").value;
