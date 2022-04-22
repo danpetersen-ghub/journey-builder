@@ -7,7 +7,8 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "test-cli": "npx cypress run  -- --record --spec",
-    "test": "./node_modules/.bin/cypress open"
+    "test": "./node_modules/.bin/cypress open",
+    "setup-db": "node NodeJS Starter/database/createdb.js && NodeJS Starter/database/createtable.js "
   },
   "author": "Daniel Petersen",
   "license": "MIT",

@@ -2,10 +2,10 @@ const mysql = require("mysql");
 require("dotenv").config({ path: "../.env" });
 
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: "NodeJS_Starter",
+  host: process.env.CLEARDB_DB_HOST,
+  user: process.env.CLEARDB_DB_USER,
+  password: process.env.CLEARDB_DB_PASS,
+  database: process.env.CLEARDB_DB_NAME,
 });
 
 connection.connect(function (err, a, b) {
