@@ -68,7 +68,7 @@ function displayDataTable(records) {
   let tableRows = "";
   for (var i = 0; i < records.length; i++) {
     tableRows += `  <tr>
-                                  <th scope="row">${records[i].id}</th>
+                                  <th scope="row"><a href="/item/${records[i].id}">${records[i].id} </a></th>
                                   <td>${records[i].column1}</td>
                                   <td>${records[i].column2}</td>
                               </tr>`;

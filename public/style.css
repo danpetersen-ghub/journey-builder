@@ -78,7 +78,11 @@ i {
   text-align: center;
 }
 i:hover {
-  color: var(--teal-blue);
+  color: var(--teal-blue) !important;
+}
+a {
+  color: var(--teal-blue)!important;
+  text-decoration: underline;
 }
 .margin-top {
   margin-top: 20%;

@@ -6,6 +6,7 @@ require("dotenv").config();
 
 //Templates
 const ejs = require("ejs");
+app.set('view engine', 'ejs');
 
 //Database
 const mysql = require("mysql2/promise");
@@ -25,8 +26,8 @@ const router = express.Router();
 const port = process.env.PORT;
 
 //API Routes
-let APIRoutes = require("./api/create_record");
-let APIRouteLogin = require("./api/login");
+const APIRoutes = require("./api/create_record");
+const APIRouteLogin = require("./api/login");
 
 //route URL to index HTML in public folder
 app.use("", express.static(__dirname + "/public"));

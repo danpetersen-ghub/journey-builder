@@ -78,11 +78,31 @@ router.get(
   dbRecord
 );
 
-async function dbRecord(req, res, next) {
+ function dbRecord(req, res, next) {
   let sql = `SELECT * FROM items;`;
-  await DATABASE.query(sql, function (err, result) {
+   DATABASE.query(sql, function (err, result) {
     if (err) throw err;
     res.send(result);
   });
 }
+
+router.get('/item/:id', function(req, res) {
+  console.log(req.params);
+
+ let sql = `SELECT * FROM items WHERE id = ${req.params.id};`;
+
+   DATABASE.query(sql, function (err, result) {
+     if (err || !result[0]) {
+        console.log(err);
+        res.render('noItem',{});
+     } else {
+     console.log(result[0]);
+     res.render('item', result[0] );
+   }
+   });
+
+
+ });
+
+
 module.exports = router;
