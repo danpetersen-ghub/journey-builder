@@ -23,7 +23,7 @@ URL: https://nodestarter-prod.herokuapp.com
 
 ### Why?
 
-I didn't want to go straight into a generic 'create-react-app' or next.js framefork. But I also seem to come up with ideas every few days, but the ambition is greater than the resources available to me! 
+I didn't want to go straight into a generic 'create-react-app' or next.js framework. But I also seem to come up with ideas every few days, but the ambition is greater than the resources available to me! 
 
 So I plan to use this starter as the base for any App I create in the future. 
 
