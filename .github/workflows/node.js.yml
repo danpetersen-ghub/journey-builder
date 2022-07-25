@@ -10,7 +10,7 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  integration-test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -25,5 +25,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-     -  name: Cypress run
-        uses: cypress-io/github-action@v2
+     -  name: install packages
+        uses: npm install
+     -  name: start app
+        uses: npm run start
+     -  name: run tests
+        uses: npm run test
