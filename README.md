@@ -19,7 +19,6 @@ URL: https://nodestarter-prod.herokuapp.com
 
 * Database
 * API
-* Login
 
 ### Why?
 
