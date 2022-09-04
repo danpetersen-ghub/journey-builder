@@ -90,7 +90,11 @@ a {
 
 @media only screen and (max-width: 600px) {
   .navbar {
+<<<<<<< HEAD
     height: 100px !important;
+=======
+    height: 100% !important;
+>>>>>>> f863d423a481c6e504d0f40ea45e7cd2901d61de
     padding-top: 40px !important;
   }
   .navbox{
