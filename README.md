@@ -1,29 +1,20 @@
-# NodeJS Starter App
+# Journey Builder
 
-URL: https://nodestarter-prod.herokuapp.com
+URL: <https://nodestarter-prod.herokuapp.com>
 
-### TechStack:
+### TechStack
 
 * NodeJS
 * Express
 * MySQL
 
-### Languages/Syntax:
+### How to Use
 
-* HTML
-* CSS
-* JavaScript
-* SQL
+- clone the Repo ```git clone```
+* install the depenencies ```npm install``
+* Create a .env file ```code -r .env```
+* ask me for credentials!
 
-### Features:
+### faqs
 
-* Database
-* API
-
-### Why?
-
-I didn't want to go straight into a generic 'create-react-app' or next.js framework. But I also seem to come up with ideas every few days, but the ambition is greater than the resources available to me! 
-
-So I plan to use this starter as the base for any App I create in the future. 
-
-I most likely will find a better nodeJS starter out in the web but this one has been great as a learning exercise. But...I must admit, harder and bigger than I thought!
+-
