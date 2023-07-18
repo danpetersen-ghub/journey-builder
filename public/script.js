@@ -1,4 +1,4 @@
-console.log(`We are Live with Starter App..`);
+//console.log(`We are Live with Starter App..`);
 
 function sendLoginCreds() {
   event.preventDefault();

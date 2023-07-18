@@ -1,19 +1,40 @@
 :root {
   /* CSS HEX */
-  --viridian-green: #119da4ff;
-  --teal-blue: #0c7489ff;
-  --midnight-green-eagle-green: #003d5bff;
-  --rich-black-fogra-39: #040404ff;
-  --OffWhite: #fff;
+  --viridian-green: #E1000F;
+  --teal-blue: #E1000F;
+  --midnight-green-eagle-green: #C2D5BC;
+  --black: #3b3b3b;
+  --OffWhite: #FFF;
 
-  /* CSS HEX */
+
+  /* lIGHT CLOURS  */
+  --col1: #C2D5BC;
+  --col2: #BDCDDA;
+  --col3: #C2D5BC;
+
+  /*   DARKCOLOURS */
+  --col4: #F6F8F6;
+  --col5: #E5ECC5;
+  --col6: #CFF3F6;
+  --col7: #DDE7ED;
+  --col8: #F2EFEF;
+  --col9: #DED7D6;
+  --col10: #E1000F;
+
+
+  /* CSS HEX
   --sunray: #edae49ff;
   --brick-red: #d1495bff;
   --metallic-seaweed: #00798cff;
   --lapis-lazuli: #30638eff;
-  --indigo-dye: #003d5bff;
+  --indigo-dye: #003d5bff; */
 }
-.row > * {
+
+.body {
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif, sans-serif !important;
+}
+
+.row>* {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
@@ -27,34 +48,40 @@
   padding: 0% !important;
   width: 100% !important;
 }
+
 .row {
   margin: 0% !important;
   padding: 0% !important;
   width: 100% !important;
 }
+
 .container-fluid body {
   background-color: var(--rich-black-fogra-39);
-  color: var(--OffWhite);
+  color: var(--black);
 }
+
 .navbar {
-  background-color: var(--midnight-green-eagle-green);
-  color: var(--OffWhite);
+  background-color: var(--col3);
+  color: var(--black);
   vertical-align: middle;
   text-align: center !important;
   height: 100vh;
   padding: 30px;
   width: 100%;
 }
+
 .navitem {
   width: 100%;
   margin-bottom: 40px;
 }
+
 .navbox {
   width: 100%;
 }
+
 .content-container {
   background-color: var(--OffWhite);
-  color: var(--midnight-green-eagle-green);
+  color: var(--black);
   vertical-align: middle;
   text-align: center;
   height: 100vh;
@@ -72,31 +99,42 @@
   background-color: var(--OffWhite);
   color: var(--teal-blue);
 }
+
 i {
   font-size: 40px;
   color: var(--OffWhite);
   text-align: center;
 }
+
 i:hover {
   color: var(--teal-blue) !important;
 }
+
 a {
-  color: var(--teal-blue)!important;
+  color: var(--col10) !important;
   text-decoration: underline;
 }
+
 .margin-top {
   margin-top: 20%;
 }
 
+.logoImg {
+  width: 80%;
+  max-width: 100px;
+}
+
 @media only screen and (max-width: 600px) {
   .navbar {
-  height: 100px !important;
- padding-top: 40px !important;
+    height: 100px !important;
+    padding-top: 40px !important;
   }
-  .navbox{
+
+  .navbox {
     display: flex;
     justify-content: center;
   }
+
   .navitem {
     width: 20%;
     margin-bottom: 40px;

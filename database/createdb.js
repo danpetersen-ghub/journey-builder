@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 require("dotenv").config({ path: "../.env" });
 
 const connection = mysql.createConnection({
@@ -13,7 +13,7 @@ connection.connect(function (err) {
   }
   console.log("Connected to MySQL DB");
 
-  connection.query("CREATE DATABASE NodeJS_Starter", function (err, result) {
+  connection.query("CREATE DATABASE journey_builder", function (err, result) {
     if (err) {
       console.log("Database might already exist");
       console.log(err);

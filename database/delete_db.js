@@ -45,7 +45,7 @@ _prompt.get(
       if (err) throw err;
       console.log("Connected to MySQL DB");
 
-      connection.query("DROP DATABASE Nodejs_Starter", function (err, result) {
+      connection.query("DROP DATABASE journey_builder", function (err, result) {
         if (err) {
           console.log("Database might already exist");
           console.log(err);

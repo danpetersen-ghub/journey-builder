@@ -1,4 +1,4 @@
-/// <reference types="cypress" />
+// <reference types="cypress" />
 
 describe("Bad User Credentials", () => {
   it("Visits NodeJS Starter", () => {

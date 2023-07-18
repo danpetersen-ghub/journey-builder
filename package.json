@@ -8,13 +8,13 @@
     "dev": "nodemon app.js && npm run test-browser ",
     "test": "cypress run --browser chrome",
     "test-browser": "./node_modules/.bin/cypress open",
-    "setup-db": "node NodeJS Starter/database/createdb.js && NodeJS Starter/database/createtable.js "
+    "setup-db": "node ./database/createdb.js && ./database/createtable.js "
   },
   "author": "Daniel Petersen",
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^2.0.15",
-    "cypress": "^9.5.3"
+    "cypress": "^9.5.3",
+    "nodemon": "^2.0.15"
   },
   "dependencies": {
     "body-parser": "^1.19.1",
@@ -29,6 +29,6 @@
   },
   "engines": {
     "npm": ">=7.0.0",
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   }
 }
