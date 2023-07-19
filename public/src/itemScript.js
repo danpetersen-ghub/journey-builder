@@ -4,15 +4,13 @@ function initializeQuillAndEventListeners() {
     document.getElementById("edit-button").addEventListener("click", function () {
         document.getElementById("edit-form").style.display = "block";
 
-        quill1 = new Quill('#editor1', {
+        quill1 = new Quill('#field1', {
             theme: 'snow'
         });
-        quill1.setContents([{ insert: document.getElementsByClassName("field")[0].textContent }]);
 
-        quill2 = new Quill('#editor2', {
+        quill2 = new Quill('#field2', {
             theme: 'snow'
         });
-        quill2.setContents([{ insert: document.getElementsByClassName("field")[1].textContent }]);
     });
 
     document.getElementById("save-button").addEventListener("click", function () {
