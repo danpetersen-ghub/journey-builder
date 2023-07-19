@@ -195,23 +195,18 @@ function getAllRecords() {
     });
 }
 
-//Initialize Quill on an element in your HTML where you want the editor to appear.
-var quill = new Quill('#editor', {
-  theme: 'snow'
-});
+function initializeQuillAndEventListeners() {
+  var quill1, quill2;
 
-
-//Add an event listener for the "Edit" button that shows the form and fills the Quill editors with the current values of the fields. Also, add an event listener for the "Save" button that sends a PUT request to the server with the new values of the fields.
-document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("edit-button").addEventListener("click", function () {
     document.getElementById("edit-form").style.display = "block";
 
-    var quill1 = new Quill('#editor1', {
+    quill1 = new Quill('#editor1', {
       theme: 'snow'
     });
     quill1.root.innerHTML = document.getElementById("column1").textContent;
 
-    var quill2 = new Quill('#editor2', {
+    quill2 = new Quill('#editor2', {
       theme: 'snow'
     });
     quill2.root.innerHTML = document.getElementById("column2").textContent;
@@ -236,4 +231,8 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log(data);
     });
   });
-});
+}
+
+if (document.getElementById("edit-button") && document.getElementById("save-button")) {
+  initializeQuillAndEventListeners();
+}
