@@ -128,13 +128,13 @@ function showForm() {
                   </div>`;
   contentArea(FormHTML);
 
-  var quill1 = new Quill('#editor1', {
-    theme: 'snow'
-  });
+  // var quill1 = new Quill('#editor1', {
+  //   theme: 'snow'
+  // });
 
-  var quill2 = new Quill('#editor2', {
-    theme: 'snow'
-  });
+  // var quill2 = new Quill('#editor2', {
+  //   theme: 'snow'
+  // });
 
   document.getElementById("create").addEventListener("click", function () {
     let column1 = quill1.root.innerHTML;
