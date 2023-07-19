@@ -140,3 +140,12 @@ a {
     margin-bottom: 40px;
   }
 }
+
+
+.field {
+  background-color: #BDCDDA;
+  border-radius: 20px;
+  /* max-width: 400px; */
+  padding: 20px;
+  border: solid 2px gray;
+}
