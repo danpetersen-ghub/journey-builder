@@ -1,12 +1,3 @@
-const quill1 = new Quill('#editor1', {
-    theme: 'snow'
-});
-
-const quill2 = new Quill('#editor2', {
-    theme: 'snow'
-});
-
-
 function initializeQuillAndEventListeners() {
     var quill1, quill2;
 
@@ -16,12 +7,12 @@ function initializeQuillAndEventListeners() {
         quill1 = new Quill('#editor1', {
             theme: 'snow'
         });
-        quill1.root.innerHTML = document.getElementById("column1").textContent;
+        quill1.setContents([{ insert: document.getElementsByClassName("field")[0].textContent }]);
 
         quill2 = new Quill('#editor2', {
             theme: 'snow'
         });
-        quill2.root.innerHTML = document.getElementById("column2").textContent;
+        quill2.setContents([{ insert: document.getElementsByClassName("field")[1].textContent }]);
     });
 
     document.getElementById("save-button").addEventListener("click", function () {
