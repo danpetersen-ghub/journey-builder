@@ -199,3 +199,41 @@ function getAllRecords() {
 var quill = new Quill('#editor', {
   theme: 'snow'
 });
+
+
+//Add an event listener for the "Edit" button that shows the form and fills the Quill editors with the current values of the fields. Also, add an event listener for the "Save" button that sends a PUT request to the server with the new values of the fields.
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("edit-button").addEventListener("click", function () {
+    document.getElementById("edit-form").style.display = "block";
+
+    var quill1 = new Quill('#editor1', {
+      theme: 'snow'
+    });
+    quill1.root.innerHTML = document.getElementById("column1").textContent;
+
+    var quill2 = new Quill('#editor2', {
+      theme: 'snow'
+    });
+    quill2.root.innerHTML = document.getElementById("column2").textContent;
+  });
+
+  document.getElementById("save-button").addEventListener("click", function () {
+    var column1 = quill1.root.innerHTML;
+    var column2 = quill2.root.innerHTML;
+
+    fetch("/api/data/" + document.getElementById("id").textContent, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        column1: column1,
+        column2: column2
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      console.log(data);
+    });
+  });
+});

@@ -149,6 +149,18 @@
                   <p>Column1: <%=  column1 %> </p>
                   <p>Column2: <%=  column2 %> </p>
     
+				  <button id="edit-button">Edit</button>
+
+					<form id="edit-form" style="display: none;">
+					  <label>Column 1</label>
+					  <div id="editor1"></div><br /><br />
+
+					  <label>Column 2</label>
+					  <div id="editor2"></div><br /><br />
+
+					  <button id="save-button" type="button">Save</button>
+					</form>
+
                 </div>
     
               </div>
@@ -156,6 +168,6 @@
           </div>
         </div>
     
-        <script src="/style.css"></script>
+        <link rel="stylesheet" type="text/css" href="/style.css">
       </body>
 </html>

@@ -104,5 +104,16 @@ router.get('/item/:id', function(req, res) {
 
  });
 
+//Add a new route for handling the PUT request. This route should update the record in the database with the new values when updating an existing record
+router.put("/api/data/:id", function (req, res) {
+  var sql = `UPDATE items SET column1 = "${req.body.column1}", column2 = "${req.body.column2}" WHERE id = ${req.params.id}`;
+
+  DATABASE.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record updated");
+    res.json({ success: true, status: 200 });
+  });
+});
+
 
 module.exports = router;
