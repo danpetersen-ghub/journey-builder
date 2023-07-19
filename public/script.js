@@ -119,17 +119,26 @@ function showForm() {
   contentArea();
   let FormHTML = `<div class="margin-top">
                     <label for="col1">Column 1</label>
-                    <input type="text" id="column1" name="col1" /><br /><br />
+                    <div id="editor1"></div><br /><br />
 
                     <label for="col2">Column 2</label>
-                    <input type="text"  id="column2" name="col1" /><br /><br />
+                    <div id="editor2"></div><br /><br />
 
                     <button class="login-btn" id="create" type="button" name="create" /> Create </button>
-                    <div>`;
+                  </div>`;
   contentArea(FormHTML);
+
+  var quill1 = new Quill('#editor1', {
+    theme: 'snow'
+  });
+
+  var quill2 = new Quill('#editor2', {
+    theme: 'snow'
+  });
+
   document.getElementById("create").addEventListener("click", function () {
-    let column1 = document.getElementById("column1").value;
-    let column2 = document.getElementById("column2").value;
+    let column1 = quill1.root.innerHTML;
+    let column2 = quill2.root.innerHTML;
 
     createRecord(column1, column2);
   });
@@ -185,3 +194,8 @@ function getAllRecords() {
       displayDataTable(responseJSON);
     });
 }
+
+//Initialize Quill on an element in your HTML where you want the editor to appear.
+var quill = new Quill('#editor', {
+  theme: 'snow'
+});
