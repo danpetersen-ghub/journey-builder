@@ -47,12 +47,16 @@ function loadApplication(data) {
   getAllRecords();
   addToNavUI(formNavItem);
   addToNavUI(dashboardNavItem);
+  addToNavUI(showModulesNavItem);
   document
     .getElementsByClassName("dashboard")[0]
     .addEventListener("click", getAllRecords);
   document
     .getElementsByClassName("form")[0]
     .addEventListener("click", showForm);
+  document
+    .getElementsByClassName("show-modules")[0]
+    .addEventListener("click", showModules);
 }
 
 //onLoginSubmit
@@ -108,15 +112,6 @@ function displayDataTable(records) {
     });
   });
 }
-
-//add event listeners to the headers
-let headers = document.querySelectorAll('#data-table .sortable');
-headers.forEach(header => {
-  header.addEventListener('click', function() {
-    let sortKey = this.dataset.sortKey;
-    sortTable(sortKey);
-  });
-});
 
 //This function will sort the rows in the table based on the clicked column
 function sortTable(sortKey, sortOrder) {
@@ -179,6 +174,12 @@ let dashboardNavItem = `
                   <div class="navitem">
                   <a href="#">
                   <i class="fa-solid fa-table dashboard"></i>    
+                  </a>
+                  `;
+let showModulesNavItem = `
+                  <div class="navitem">
+                  <a href="#">
+                  <i class="fa-solid fa-cubes show-modules"></i>    
                   </a>
                   `;
 
@@ -263,26 +264,19 @@ function getAllRecords() {
     });
 }
 
-// bit of code to load the modules from public/src/20230720modularTemplate.html and to add a new navicon that hwen clicked shows all the modules
-fetch('/src/20230720modularTemplate.html')
-  .then(response => response.text())
-  .then(html => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
+// bit of code to load the modules from public/src/20230720modularTemplate.html and to add a new navicon that when clicked shows all the modules
+function showModules() {
+  fetch('/src/20230720modularTemplate.html')
+    .then(response => response.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
 
-    // Find all the tr elements with the class mktoModule and extract their IDs
-    const modules = Array.from(doc.querySelectorAll('tr.mktoModule')).map(tr => tr.id);
+      // Find all the tr elements with the class mktoModule and extract their IDs
+      const modules = Array.from(doc.querySelectorAll('tr.mktoModule'));
 
-    // Create a new navItem
-    const navItem = document.createElement('div');
-    navItem.textContent = 'Show Modules';
-    navItem.addEventListener('click', () => {
       // When the navItem is clicked, update the page to display all the modules
-      const contentArea = document.querySelector('.content-container'); // Replace with the actual selector
-      contentArea.innerHTML = modules.map(id => `<h2>${id}</h2>`).join('');
+      const contentArea = document.querySelector('.content-container');
+      contentArea.innerHTML = modules.map(module => module.outerHTML + '<hr>').join('');
     });
-
-    // Add the navItem to the navbar
-	const navbar = document.querySelector('.navbar'); // Replace with the actual selector
-    navbar.appendChild(navItem);
-  });
+}
