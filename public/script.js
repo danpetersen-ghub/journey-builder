@@ -74,20 +74,32 @@ function displayDataTable(records) {
                               </tr>`;
   }
   let tableHTML = `
-	  <table class="table" id="data-table">
-		<thead>
-		  <tr>
-			<th scope="col" class="sortable" data-sort-key="id">#</th>
-			<th scope="col" class="sortable" data-sort-key="column1">Column1</th>
-			<th scope="col" class="sortable" data-sort-key="column2">Column2</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  ${tableRows}
-		</tbody>
-	  </table>
-	`;
+                    <table class="table" id="data-table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="sortable" data-sort-key="id" data-sort-order="asc">#</th>
+                        <th scope="col" class="sortable" data-sort-key="column1" data-sort-order="asc">Column1</th>
+                        <th scope="col" class="sortable" data-sort-key="column2" data-sort-order="asc">Column2</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    ${tableRows}
+                    </tbody>
+                    </table>
+                    `;
   contentArea(tableHTML);
+
+  //add event listeners to the headers
+  let headers = document.querySelectorAll('#data-table .sortable');
+  headers.forEach(header => {
+    header.addEventListener('click', function() {
+      let sortKey = this.dataset.sortKey;
+      let sortOrder = this.dataset.sortOrder;
+      sortTable(sortKey, sortOrder);
+      // switch the sort order for the next click
+      this.dataset.sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    });
+  });
 }
 
 //add event listeners to the headers
@@ -100,23 +112,38 @@ headers.forEach(header => {
 });
 
 //This function will sort the rows in the table based on the clicked column
-function sortTable(sortKey) {
-  let table = document.getElementById('data-table');
-  let rows = Array.from(table.rows).slice(1);  // Convert to array and skip header row
-  let sortedRows;
+function sortTable(sortKey, sortOrder) {
+  //send data to api endpoint
+  const headers = {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  };
 
-  // Sort rows based on the content of the specified column
-  if (sortKey === 'id') {
-    sortedRows = rows.sort((a, b) => a.cells[0].textContent - b.cells[0].textContent);
-  } else {
-    sortedRows = rows.sort((a, b) => a.cells[sortKey === 'column1' ? 1 : 2].textContent.localeCompare(b.cells[sortKey === 'column1' ? 1 : 2].textContent));
-  }
+  //send data to api endpoint to get data
+  const response = fetch("/api/all/data", headers);
+  console.log("Sent Req to: /api/all/data");
 
-  // Remove existing rows
-  rows.forEach(row => table.deleteRow(row.rowIndex));
-
-  // Add sorted rows
-  sortedRows.forEach(row => table.tBodies[0].appendChild(row));
+  //log out the response, then log response
+  response
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      let records = responseJSON;
+      records.sort((a, b) => {
+        if (sortOrder === 'asc') {
+          if (a[sortKey] < b[sortKey]) return -1;
+          if (a[sortKey] > b[sortKey]) return 1;
+          return 0;
+        } else {
+          if (a[sortKey] < b[sortKey]) return 1;
+          if (a[sortKey] > b[sortKey]) return -1;
+          return 0;
+        }
+      });
+      displayDataTable(records);
+    });
 }
 
 //clearContentArea
