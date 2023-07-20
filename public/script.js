@@ -118,10 +118,10 @@ let dashboardNavItem = `
 function showForm() {
   contentArea();
   let FormHTML = `<div class="margin-top">
-                    <label for="col1">Column 1</label>
+                    <label>Column 1</label>
                     <div id="editor1"></div><br /><br />
 
-                    <label for="col2">Column 2</label>
+                    <label>Column 2</label>
                     <div id="editor2"></div><br /><br />
 
                     <button class="login-btn" id="create" type="button" name="create" /> Create </button>
@@ -170,6 +170,7 @@ function createRecord(value1, value2) {
     .then((responseJSON) => {
       //{"Data":{}}, "success": true, "message":"loremIpsum" }
       console.log(responseJSON);
+      getAllRecords(); // Call getAllRecords() after the new record has been created
     });
 }
 
@@ -194,8 +195,3 @@ function getAllRecords() {
       displayDataTable(responseJSON);
     });
 }
-
-//Initialize Quill on an element in your HTML where you want the editor to appear.
-var quill = new Quill('#editor', {
-  theme: 'snow'
-});
