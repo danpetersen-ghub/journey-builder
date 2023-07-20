@@ -64,7 +64,7 @@ loginButton.addEventListener("click", function () {
 
 //keeping track of sorting order
 let sortOrders = {
-  id: 'asc',
+  id: 'desc',
   column1: 'asc',
   column2: 'asc',
 };
@@ -84,9 +84,9 @@ function displayDataTable(records) {
                     <table class="table" id="data-table">
                     <thead>
                       <tr>
-                        <th scope="col" class="sortable" data-sort-key="id" data-sort-order="asc">#</th>
-                        <th scope="col" class="sortable" data-sort-key="column1" data-sort-order="asc">Column1</th>
-                        <th scope="col" class="sortable" data-sort-key="column2" data-sort-order="asc">Column2</th>
+                        <th scope="col" class="sortable" data-sort-key="id">#</th>
+                        <th scope="col" class="sortable" data-sort-key="column1">Column1</th>
+                        <th scope="col" class="sortable" data-sort-key="column2">Column2</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -104,7 +104,7 @@ function displayDataTable(records) {
       let sortOrder = this.dataset.sortOrder;
       sortTable(sortKey, sortOrder);
       // switch the sort order for the next click
-      this.dataset.sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+      this.dataset.sortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
     });
   });
 }
@@ -119,10 +119,10 @@ headers.forEach(header => {
 });
 
 //This function will sort the rows in the table based on the clicked column
-function sortTable(sortKey) {
+function sortTable(sortKey, sortOrder) {
   // Toggle sort order
-  sortOrders[sortKey] = sortOrders[sortKey] === 'asc' ? 'desc' : 'asc';
-  const sortOrder = sortOrders[sortKey];
+  sortOrders[sortKey] = sortOrders[sortKey] === 'desc' ? 'asc' : 'desc';
+  sortOrder = sortOrders[sortKey];
 
   //send data to api endpoint
   const headers = {
@@ -143,7 +143,7 @@ function sortTable(sortKey) {
     .then((responseJSON) => {
       let records = responseJSON;
       records.sort((a, b) => {
-        if (sortOrder === 'asc') {
+        if (sortOrder === 'desc') {
           if (a[sortKey] < b[sortKey]) return -1;
           if (a[sortKey] > b[sortKey]) return 1;
           return 0;
@@ -262,3 +262,27 @@ function getAllRecords() {
       displayDataTable(responseJSON);
     });
 }
+
+// bit of code to load the modules from public/src/20230720modularTemplate.html and to add a new navicon that hwen clicked shows all the modules
+fetch('/src/20230720modularTemplate.html')
+  .then(response => response.text())
+  .then(html => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    // Find all the tr elements with the class mktoModule and extract their IDs
+    const modules = Array.from(doc.querySelectorAll('tr.mktoModule')).map(tr => tr.id);
+
+    // Create a new navItem
+    const navItem = document.createElement('div');
+    navItem.textContent = 'Show Modules';
+    navItem.addEventListener('click', () => {
+      // When the navItem is clicked, update the page to display all the modules
+      const contentArea = document.querySelector('.content-container'); // Replace with the actual selector
+      contentArea.innerHTML = modules.map(id => `<h2>${id}</h2>`).join('');
+    });
+
+    // Add the navItem to the navbar
+	const navbar = document.querySelector('.navbar'); // Replace with the actual selector
+    navbar.appendChild(navItem);
+  });
