@@ -277,6 +277,7 @@ function showModules() {
 
       // When the navItem is clicked, update the page to display all the modules
       const contentArea = document.querySelector('.content-container');
-      contentArea.innerHTML = modules.map(module => module.outerHTML + '<hr>').join('');
+      contentArea.innerHTML = modules.map(module => `<h2>${module.id}</h2>` + module.outerHTML + '<hr>').join('');
     });
 }
+
