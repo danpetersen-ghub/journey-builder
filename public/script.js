@@ -62,6 +62,13 @@ loginButton.addEventListener("click", function () {
   sendLoginCreds();
 });
 
+//keeping track of sorting order
+let sortOrders = {
+  id: 'asc',
+  column1: 'asc',
+  column2: 'asc',
+};
+
 //Update UI with DB Saved data
 function displayDataTable(records) {
   contentArea();
@@ -112,7 +119,11 @@ headers.forEach(header => {
 });
 
 //This function will sort the rows in the table based on the clicked column
-function sortTable(sortKey, sortOrder) {
+function sortTable(sortKey) {
+  // Toggle sort order
+  sortOrders[sortKey] = sortOrders[sortKey] === 'asc' ? 'desc' : 'asc';
+  const sortOrder = sortOrders[sortKey];
+
   //send data to api endpoint
   const headers = {
     method: "GET",
