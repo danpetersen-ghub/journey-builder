@@ -28,7 +28,7 @@ function sendLoginCreds() {
   response
     .then((response) => response.json())
     .then((responseJSON) => {
-      //{"Data":{}}, "success": true, "message":"loremIpsum" }
+      //{"Data":{}, "success": true, "message":"loremIpsum" }
       console.log(responseJSON);
 
       //Display Status/Login message
@@ -74,20 +74,49 @@ function displayDataTable(records) {
                               </tr>`;
   }
   let tableHTML = `
-                    <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Column1</th>
-                        <th scope="col">Column2</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    ${tableRows}
-                    </tbody>
-                    </table>
-                    `;
+	  <table class="table" id="data-table">
+		<thead>
+		  <tr>
+			<th scope="col" class="sortable" data-sort-key="id">#</th>
+			<th scope="col" class="sortable" data-sort-key="column1">Column1</th>
+			<th scope="col" class="sortable" data-sort-key="column2">Column2</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  ${tableRows}
+		</tbody>
+	  </table>
+	`;
   contentArea(tableHTML);
+}
+
+//add event listeners to the headers
+let headers = document.querySelectorAll('#data-table .sortable');
+headers.forEach(header => {
+  header.addEventListener('click', function() {
+    let sortKey = this.dataset.sortKey;
+    sortTable(sortKey);
+  });
+});
+
+//This function will sort the rows in the table based on the clicked column
+function sortTable(sortKey) {
+  let table = document.getElementById('data-table');
+  let rows = Array.from(table.rows).slice(1);  // Convert to array and skip header row
+  let sortedRows;
+
+  // Sort rows based on the content of the specified column
+  if (sortKey === 'id') {
+    sortedRows = rows.sort((a, b) => a.cells[0].textContent - b.cells[0].textContent);
+  } else {
+    sortedRows = rows.sort((a, b) => a.cells[sortKey === 'column1' ? 1 : 2].textContent.localeCompare(b.cells[sortKey === 'column1' ? 1 : 2].textContent));
+  }
+
+  // Remove existing rows
+  rows.forEach(row => table.deleteRow(row.rowIndex));
+
+  // Add sorted rows
+  sortedRows.forEach(row => table.tBodies[0].appendChild(row));
 }
 
 //clearContentArea
@@ -168,7 +197,7 @@ function createRecord(value1, value2) {
   response
     .then((response) => response.json())
     .then((responseJSON) => {
-      //{"Data":{}}, "success": true, "message":"loremIpsum" }
+      //{"Data":{}, "success": true, "message":"loremIpsum" }
       console.log(responseJSON);
       getAllRecords(); // Call getAllRecords() after the new record has been created
     });
