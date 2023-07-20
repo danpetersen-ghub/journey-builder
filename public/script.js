@@ -118,15 +118,23 @@ let dashboardNavItem = `
 function showForm() {
   contentArea();
   let FormHTML = `<div class="margin-top">
-                    <label for="col1">Column 1</label>
+                    <label>Column 1</label>
                     <div id="editor1"></div><br /><br />
 
-                    <label for="col2">Column 2</label>
+                    <label>Column 2</label>
                     <div id="editor2"></div><br /><br />
 
                     <button class="login-btn" id="create" type="button" name="create" /> Create </button>
                   </div>`;
   contentArea(FormHTML);
+
+  var quill1 = new Quill('#editor1', {
+    theme: 'snow'
+  });
+
+  var quill2 = new Quill('#editor2', {
+    theme: 'snow'
+  });
 
   document.getElementById("create").addEventListener("click", function () {
     let column1 = quill1.root.innerHTML;
@@ -162,6 +170,7 @@ function createRecord(value1, value2) {
     .then((responseJSON) => {
       //{"Data":{}}, "success": true, "message":"loremIpsum" }
       console.log(responseJSON);
+      getAllRecords(); // Call getAllRecords() after the new record has been created
     });
 }
 
