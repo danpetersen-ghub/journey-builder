@@ -78,19 +78,34 @@ function displayDataTable(records) {
   contentArea();
   let tableRows = "";
   for (var i = 0; i < records.length; i++) {
-    tableRows += `  <tr>
-                                  <th scope="row"><a href="/item/${records[i].id}">${records[i].id} </a></th>
-                                  <td>${records[i].column1}</td>
-                                  <td>${records[i].column2}</td>
-                              </tr>`;
-  }
+	tableRows += `  <tr>
+					  <th scope="row"><a href="/item/${records[i].id}">${records[i].id} </a></th>
+					  <td>${records[i].requestor_name}</td>
+					  <td>${records[i].requestor_email}</td>
+					  <td>${records[i].email_name}</td>
+					  <td>${records[i].program_name}</td>
+					  <td>
+						<span class="delete-icon" data-id="${records[i].id}" style="color: red;">Delete</span>
+						<span class="delete-confirm" data-id="${records[i].id}" style="display: none;">
+						  Are you sure you want to delete this record, this cannot be undone!
+						  <br>
+						  <span class="confirm-delete" data-id="${records[i].id}" style="color: red;">Confirm</span>
+						  <span class="cancel-delete" data-id="${records[i].id}" style="color: darkgrey;">Cancel</span>
+						</span>
+					  </td>
+				  </tr>`;
+	}
+
   let tableHTML = `
                     <table class="table" id="data-table">
                     <thead>
                       <tr>
                         <th scope="col" class="sortable" data-sort-key="id">#</th>
-                        <th scope="col" class="sortable" data-sort-key="column1">Column1</th>
-                        <th scope="col" class="sortable" data-sort-key="column2">Column2</th>
+                        <th scope="col" class="sortable" data-sort-key="requestor_name">Requestor Name</th>
+                        <th scope="col" class="sortable" data-sort-key="requestor_email">Requestor Email</th>
+                        <th scope="col" class="sortable" data-sort-key="email_name">Email Name</th>
+                        <th scope="col" class="sortable" data-sort-key="program_name">Program Name</th>
+                        <th scope="col">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -111,6 +126,74 @@ function displayDataTable(records) {
       this.dataset.sortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
     });
   });
+  
+  //shows and hides the delete text and warning
+  document.querySelectorAll('.delete-icon').forEach(item => {
+    item.addEventListener('click', event => {
+      let id = event.target.dataset.id;
+      event.target.style.display = 'none'; // Hide the "Delete" text
+      document.querySelector(`.delete-confirm[data-id="${id}"]`).style.display = 'block'; // Show the warning message
+    });
+  });
+
+  document.querySelectorAll('.cancel-delete').forEach(item => {
+    item.addEventListener('click', event => {
+      let id = event.target.dataset.id;
+      document.querySelector(`.delete-confirm[data-id="${id}"]`).style.display = 'none'; // Hide the warning message
+      document.querySelector(`.delete-icon[data-id="${id}"]`).style.display = 'inline'; // Show the "Delete" text
+    });
+  });
+  
+  // Add event listeners to trashcan icons
+  let deleteIcons = document.querySelectorAll('.delete-icon');
+  deleteIcons.forEach(icon => {
+    icon.addEventListener('click', function() {
+      let id = this.dataset.id;
+      document.querySelector(`.delete-confirm[data-id="${id}"]`).style.display = 'inline';
+    });
+  });
+
+  // Add event listeners to checkmark icons
+  let confirmDeletes = document.querySelectorAll('.confirm-delete');
+  confirmDeletes.forEach(icon => {
+    icon.addEventListener('click', function() {
+      let id = this.dataset.id;
+      deleteRecord(id);
+    });
+  });
+
+  // Add event listeners to cross icons
+  let cancelDeletes = document.querySelectorAll('.cancel-delete');
+  cancelDeletes.forEach(icon => {
+    icon.addEventListener('click', function() {
+      let id = this.dataset.id;
+      document.querySelector(`.delete-confirm[data-id="${id}"]`).style.display = 'none';
+    });
+  });
+}
+
+function deleteRecord(id) {
+  //send data to api endpoint
+  const headers = {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  };
+
+  //send data to api endpoint to delete record
+  const response = fetch(`/api/data/${id}`, headers);
+  console.log(`Sent Req to: /api/data/${id}`);
+
+  //log out the response, then log response
+  response
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      //{"Data":{}, "success": true, "message":"loremIpsum" }
+      console.log(responseJSON);
+      getAllRecords(); // Call getAllRecords() after the record has been deleted
+    });
 }
 
 //This function will sort the rows in the table based on the clicked column
@@ -190,20 +273,20 @@ function showRequestForm() {
       <h2>Request Information</h2>
       <form>
         <div class="mb-3">
-          <label for="requestorName" class="form-label">Requestor Name</label>
-          <input type="text" class="form-control" id="requestorName" name="requestorName">
+          <label for="requestor_name" class="form-label">Requestor Name</label>
+          <input type="text" class="form-control" id="requestor_name" name="requestor_name">
         </div>
         <div class="mb-3">
-          <label for="requestorEmail" class="form-label">Requestor Email</label>
-          <input type="email" class="form-control" id="requestorEmail" name="requestorEmail">
+          <label for="requestor_email" class="form-label">Requestor Email</label>
+          <input type="email" class="form-control" id="requestor_email" name="requestor_email">
         </div>
         <div class="mb-3">
-          <label for="emailName" class="form-label">Email Name</label>
-          <input type="text" class="form-control" id="emailName" name="emailName">
+          <label for="email_name" class="form-label">Email Name</label>
+          <input type="text" class="form-control" id="email_name" name="email_name">
         </div>
         <div class="mb-3">
-          <label for="programName" class="form-label">Program Name</label>
-          <input type="text" class="form-control" id="programName" name="programName">
+          <label for="program_name" class="form-label">Program Name</label>
+          <input type="text" class="form-control" id="program_name" name="program_name">
         </div>
         <button class="btn btn-primary" id="create" type="button" name="create">Create</button>
       </form>
@@ -212,37 +295,37 @@ function showRequestForm() {
   contentArea(FormHTML);
 
   document.getElementById("create").addEventListener("click", function () {
-    let requestorName = document.getElementById("requestorName").value;
-    let requestorEmail = document.getElementById("requestorEmail").value;
-    let emailName = document.getElementById("emailName").value;
-    let programName = document.getElementById("programName").value;
+    let requestor_name = document.getElementById("requestor_name").value;
+    let requestor_email = document.getElementById("requestor_email").value;
+    let email_name = document.getElementById("email_name").value;
+    let program_name = document.getElementById("program_name").value;
 
-    createRecord(requestorName, requestorEmail, emailName, programName);
-    showEmailBriefForm(requestorName, requestorEmail, emailName, programName);
+    createRecord(requestor_name, requestor_email, email_name, program_name);
+    showEmailBriefForm(requestor_name, requestor_email, email_name, program_name);
   });
 }
 
-function showEmailBriefForm(requestorName, requestorEmail, emailName, programName) {
+function showEmailBriefForm(requestor_name, requestor_email, email_name, program_name) {
   contentArea();
   let FormHTML = `
     <div class="container">
       <h2>Request Information</h2>
       <form>
         <div class="mb-3">
-          <label for="requestorName" class="form-label">Requestor Name</label>
-          <input type="text" class="form-control" id="requestorName" name="requestorName" value="${requestorName}" readonly>
+          <label for="requestor_name" class="form-label">Requestor Name</label>
+          <input type="text" class="form-control" id="requestor_name" name="requestor_name" value="${requestor_name}" readonly>
         </div>
         <div class="mb-3">
-          <label for="requestorEmail" class="form-label">Requestor Email</label>
-          <input type="email" class="form-control" id="requestorEmail" name="requestorEmail" value="${requestorEmail}" readonly>
+          <label for="requestor_email" class="form-label">Requestor Email</label>
+          <input type="email" class="form-control" id="requestor_email" name="requestor_email" value="${requestor_email}" readonly>
         </div>
         <div class="mb-3">
-          <label for="emailName" class="form-label">Email Name</label>
-          <input type="text" class="form-control" id="emailName" name="emailName" value="${emailName}">
+          <label for="email_name" class="form-label">Email Name</label>
+          <input type="text" class="form-control" id="email_name" name="email_name" value="${email_name}">
         </div>
         <div class="mb-3">
-          <label for="programName" class="form-label">Program Name</label>
-          <input type="text" class="form-control" id="programName" name="programName" value="${programName}">
+          <label for="program_name" class="form-label">Program Name</label>
+          <input type="text" class="form-control" id="program_name" name="program_name" value="${program_name}">
         </div>
       </form>
 
@@ -296,23 +379,23 @@ function showEmailBriefForm(requestorName, requestorEmail, emailName, programNam
   });
 
   document.getElementById("save").addEventListener("click", function () {
-    let emailName = document.getElementById("emailName").value;
-    let programName = document.getElementById("programName").value;
+    let email_name = document.getElementById("email_name").value;
+    let program_name = document.getElementById("program_name").value;
     let subjectLine = quillSubjectLine.root.innerHTML;
     let preHeader = quillPreHeader.root.innerHTML;
     let email = document.getElementById("email").innerHTML;
 
-    updateRecord(requestorName, requestorEmail, emailName, programName, subjectLine, preHeader, email);
+    createRecord(requestor_name, requestor_email, email_name, program_name, subjectLine, preHeader, email);
   });
 }
 
 
-function createRecord(requestorName, requestorEmail, emailName, programName) {
+function createRecord(requestor_name, requestor_email, email_name, program_name) {
   let payload = {
-    requestorName: requestorName,
-    requestorEmail: requestorEmail,
-    emailName: emailName,
-    programName: programName,
+    requestor_name: requestor_name,
+    requestor_email: requestor_email,
+    email_name: email_name,
+    program_name: program_name,
   };
 
   //send data to api endpoint
@@ -334,17 +417,106 @@ function createRecord(requestorName, requestorEmail, emailName, programName) {
     .then((response) => response.json())
     .then((responseJSON) => {
       //{"Data":{}, "success": true, "message":"loremIpsum" }
-      console.log(responseJSON);
-      getAllRecords(); // Call getAllRecords() after the new record has been created
+      console.log(responseJSON); // This will log the responseJSON to the console
+      // Display the newly created record instead of all records
+      showEmailBriefForm(responseJSON.data); 
     });
 }
 
-function updateRecord(requestorName, requestorEmail, emailName, programName, subjectLine, preHeader, email) {
+function showEmailBriefForm(record) {
+  contentArea();
+  let FormHTML = `
+    <div class="container">
+      <h2>Request Information</h2>
+      <form>
+        <div class="mb-3">
+          <label for="requestorName" class="form-label">Requestor Name</label>
+          <input type="text" class="form-control" id="requestorName" name="requestorName" value="${record.requestor_name}" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="requestorEmail" class="form-label">Requestor Email</label>
+          <input type="email" class="form-control" id="requestorEmail" name="requestorEmail" value="${record.requestor_email}" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="emailName" class="form-label">Email Name</label>
+          <input type="text" class="form-control" id="emailName" name="emailName" value="${record.email_name}">
+        </div>
+        <div class="mb-3">
+          <label for="programName" class="form-label">Program Name</label>
+          <input type="text" class="form-control" id="programName" name="programName" value="${record.program_name}">
+        </div>
+      </form>
+        <button class="btn btn-primary" id="cancel" type="button" name="cancel">Cancel</button>
+        <button class="btn btn-primary" id="save" type="button" name="save">Save</button>
+      <h2>Email Brief</h2>
+      <form>
+        <div class="mb-3">
+          <label class="form-label">Subject Line</label>
+          <div id="editorSubjectLine"></div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Pre-header</label>
+          <div id="editorPreHeader"></div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <div id="email"></div>
+        </div>
+      </form>
+    </div>
+  `;
+  contentArea(FormHTML);
+
+  var quillSubjectLine = new Quill('#editorSubjectLine', {
+    theme: 'snow'
+  });
+
+  var quillPreHeader = new Quill('#editorPreHeader', {
+    theme: 'snow'
+  });
+
+  fetch('/src/20230720modularTemplate.html')
+    .then(response => response.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // Specify the order of the modules
+      const moduleOrder = ['TopBorder', 'header-2', 'bannermodulev2', 'headingmodule', 'subheadingmodule', 'freetextmodule', 'ctamodule1', 'textwithimage5', 'footermodulv1', 'footermodulv2'];
+
+      // Extract the modules in the specified order
+      const emailHTML = moduleOrder.map(id => doc.getElementById(id).outerHTML).join('');
+
+      // Display the email HTML in the "Email" field
+      document.getElementById('email').innerHTML = emailHTML;
+    });
+
+	document.getElementById("cancel").addEventListener("click", function () {
+	  displayRecord(record);
+	});
+
+  document.getElementById("save").addEventListener("click", function () {
+    let emailName = document.getElementById("emailName").value;
+    let programName = document.getElementById("programName").value;
+    let subjectLine = quillSubjectLine.root.innerHTML;
+    let preHeader = quillPreHeader.root.innerHTML;
+    let email = document.getElementById("email").innerHTML;
+
+    updateRecord(record.id, record.requestor_name, record.requestor_email, emailName, programName, subjectLine, preHeader, email);
+  });
+}
+
+function displayRecord(record) {
+  document.getElementById("emailName").value = record.email_name;
+  document.getElementById("programName").value = record.program_name;
+}
+
+function updateRecord(requestor_name, requestor_email, email_name, program_name, subjectLine, preHeader, email) {
   let payload = {
-    requestorName: requestorName,
-    requestorEmail: requestorEmail,
-    emailName: emailName,
-    programName: programName,
+    requestor_name: requestor_name,
+    requestor_email: requestor_email,
+    email_name: email_name,
+    program_name: program_name,
     subjectLine: subjectLine,
     preHeader: preHeader,
     email: email

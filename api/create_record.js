@@ -23,11 +23,20 @@ router.all("/api/data", function (req, res) {
   DATABASE.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record inserted");
-  });
 
-  //server response to API call
-  res.json({ success: true, status: 200 });
+    // Get the ID of the newly inserted record
+    var insertedId = result.insertId;
+
+    // Fetch the newly inserted record from the database
+    DATABASE.query(`SELECT * FROM items WHERE id = ${insertedId}`, function (err, result) {
+      if (err) throw err;
+
+      // Return the newly inserted record in the response
+      res.json({ success: true, status: 200, data: result[0] });
+    });
+  });
 });
+
 
 console.log("API Endpoint Available: http://127.0.0.1:3000/api/data");
 

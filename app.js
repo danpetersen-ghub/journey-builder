@@ -28,6 +28,7 @@ const port = process.env.PORT;
 //API Routes
 const APIRoutes = require("./api/create_record");
 const APIRouteLogin = require("./api/login");
+const APIRouteDelete = require("./api/delete_record");
 
 //route URL to index HTML in public folder
 app.use("", express.static(__dirname + "/public"));
@@ -35,6 +36,8 @@ app.use("", express.static(__dirname + "/public"));
 app.use("", APIRoutes);
 
 app.use("", APIRouteLogin);
+
+app.use("", APIRouteDelete);
 
 //Send Index HTML
 app.get("", function (req, res) {
