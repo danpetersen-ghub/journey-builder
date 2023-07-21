@@ -339,6 +339,40 @@ function createRecord(requestorName, requestorEmail, emailName, programName) {
     });
 }
 
+function updateRecord(requestorName, requestorEmail, emailName, programName, subjectLine, preHeader, email) {
+  let payload = {
+    requestorName: requestorName,
+    requestorEmail: requestorEmail,
+    emailName: emailName,
+    programName: programName,
+    subjectLine: subjectLine,
+    preHeader: preHeader,
+    email: email
+  };
+
+  //send data to api endpoint
+  const headers = {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  };
+
+  //send data to api endpoint to update record
+  const response = fetch("/api/data", headers);
+  console.log("Sent Req to: /api/data");
+
+  //log out the response, then log response
+  response
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      //{"Data":{}, "success": true, "message":"loremIpsum" }
+      console.log(responseJSON);
+      getAllRecords(); // Call getAllRecords() after the record has been updated
+    });
+}
 
 function getAllRecords() {
   //send data to api endpoint
