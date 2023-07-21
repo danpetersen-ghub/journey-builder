@@ -53,7 +53,7 @@ function loadApplication(data) {
     .addEventListener("click", getAllRecords);
   document
     .getElementsByClassName("form")[0]
-    .addEventListener("click", showForm);
+    .addEventListener("click", showRequestForm);
   document
     .getElementsByClassName("show-modules")[0]
     .addEventListener("click", showModules);
@@ -183,39 +183,136 @@ let showModulesNavItem = `
                   </a>
                   `;
 
-function showForm() {
+function showRequestForm() {
   contentArea();
-  let FormHTML = `<div class="margin-top">
-                    <label>Column 1</label>
-                    <div id="editor1"></div><br /><br />
-
-                    <label>Column 2</label>
-                    <div id="editor2"></div><br /><br />
-
-                    <button class="login-btn" id="create" type="button" name="create" /> Create </button>
-                  </div>`;
+  let FormHTML = `
+    <div class="container">
+      <h2>Request Information</h2>
+      <form>
+        <div class="mb-3">
+          <label for="requestorName" class="form-label">Requestor Name</label>
+          <input type="text" class="form-control" id="requestorName" name="requestorName">
+        </div>
+        <div class="mb-3">
+          <label for="requestorEmail" class="form-label">Requestor Email</label>
+          <input type="email" class="form-control" id="requestorEmail" name="requestorEmail">
+        </div>
+        <div class="mb-3">
+          <label for="emailName" class="form-label">Email Name</label>
+          <input type="text" class="form-control" id="emailName" name="emailName">
+        </div>
+        <div class="mb-3">
+          <label for="programName" class="form-label">Program Name</label>
+          <input type="text" class="form-control" id="programName" name="programName">
+        </div>
+        <button class="btn btn-primary" id="create" type="button" name="create">Create</button>
+      </form>
+    </div>
+  `;
   contentArea(FormHTML);
 
-  var quill1 = new Quill('#editor1', {
-    theme: 'snow'
-  });
-
-  var quill2 = new Quill('#editor2', {
-    theme: 'snow'
-  });
-
   document.getElementById("create").addEventListener("click", function () {
-    let column1 = quill1.root.innerHTML;
-    let column2 = quill2.root.innerHTML;
+    let requestorName = document.getElementById("requestorName").value;
+    let requestorEmail = document.getElementById("requestorEmail").value;
+    let emailName = document.getElementById("emailName").value;
+    let programName = document.getElementById("programName").value;
 
-    createRecord(column1, column2);
+    createRecord(requestorName, requestorEmail, emailName, programName);
+    showEmailBriefForm(requestorName, requestorEmail, emailName, programName);
   });
 }
 
-function createRecord(value1, value2) {
+function showEmailBriefForm(requestorName, requestorEmail, emailName, programName) {
+  contentArea();
+  let FormHTML = `
+    <div class="container">
+      <h2>Request Information</h2>
+      <form>
+        <div class="mb-3">
+          <label for="requestorName" class="form-label">Requestor Name</label>
+          <input type="text" class="form-control" id="requestorName" name="requestorName" value="${requestorName}" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="requestorEmail" class="form-label">Requestor Email</label>
+          <input type="email" class="form-control" id="requestorEmail" name="requestorEmail" value="${requestorEmail}" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="emailName" class="form-label">Email Name</label>
+          <input type="text" class="form-control" id="emailName" name="emailName" value="${emailName}">
+        </div>
+        <div class="mb-3">
+          <label for="programName" class="form-label">Program Name</label>
+          <input type="text" class="form-control" id="programName" name="programName" value="${programName}">
+        </div>
+      </form>
+
+      <h2>Email Brief</h2>
+      <form>
+        <div class="mb-3">
+          <label class="form-label">Subject Line</label>
+          <div id="editorSubjectLine"></div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Pre-header</label>
+          <div id="editorPreHeader"></div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <div id="email"></div>
+        </div>
+        <button class="btn btn-primary" id="cancel" type="button" name="cancel">Cancel</button>
+        <button class="btn btn-primary" id="save" type="button" name="save">Save</button>
+      </form>
+    </div>
+  `;
+  contentArea(FormHTML);
+
+  var quillSubjectLine = new Quill('#editorSubjectLine', {
+    theme: 'snow'
+  });
+
+  var quillPreHeader = new Quill('#editorPreHeader', {
+    theme: 'snow'
+  });
+
+  fetch('/src/20230720modularTemplate.html')
+    .then(response => response.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // Specify the order of the modules
+      const moduleOrder = ['TopBorder', 'header-2', 'bannermodulev2', 'headingmodule', 'subheadingmodule', 'freetextmodule', 'ctamodule1', 'textwithimage5', 'footermodulv1', 'footermodulv2'];
+
+      // Extract the modules in the specified order
+      const emailHTML = moduleOrder.map(id => doc.getElementById(id).outerHTML).join('');
+
+      // Display the email HTML in the "Email" field
+      document.getElementById('email').innerHTML = emailHTML;
+    });
+
+  document.getElementById("cancel").addEventListener("click", function () {
+    location.reload();
+  });
+
+  document.getElementById("save").addEventListener("click", function () {
+    let emailName = document.getElementById("emailName").value;
+    let programName = document.getElementById("programName").value;
+    let subjectLine = quillSubjectLine.root.innerHTML;
+    let preHeader = quillPreHeader.root.innerHTML;
+    let email = document.getElementById("email").innerHTML;
+
+    updateRecord(requestorName, requestorEmail, emailName, programName, subjectLine, preHeader, email);
+  });
+}
+
+
+function createRecord(requestorName, requestorEmail, emailName, programName) {
   let payload = {
-    column1: value1,
-    column2: value2,
+    requestorName: requestorName,
+    requestorEmail: requestorEmail,
+    emailName: emailName,
+    programName: programName,
   };
 
   //send data to api endpoint
@@ -225,7 +322,7 @@ function createRecord(value1, value2) {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(payload), //{"column1":"abc","column2":"xyz"}
+    body: JSON.stringify(payload),
   };
 
   //send data to api endpoint to login
@@ -241,6 +338,7 @@ function createRecord(value1, value2) {
       getAllRecords(); // Call getAllRecords() after the new record has been created
     });
 }
+
 
 function getAllRecords() {
   //send data to api endpoint

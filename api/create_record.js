@@ -17,7 +17,7 @@ router.all("/api/data", function (req, res) {
   console.log(req.body);
 
   //Sql
-  var sql = `INSERT INTO items (column1, column2) VALUES ("${req.body.column1}", "${req.body.column2}")`;
+  var sql = `INSERT INTO items (requestor_name, requestor_email, email_name, program_name) VALUES ("${req.body.requestor_name}", "${req.body.requestor_email}", "${req.body.email_name}", "${req.body.program_name}")`;
 
   //DB query
   DATABASE.query(sql, function (err, result) {
