@@ -1,6 +1,6 @@
 # Journey Builder
 
-URL:
+Site: <https://hnkl-journey-builder-c2c613aec1b5.herokuapp.com/>
 
 ### TechStack
 
@@ -21,6 +21,6 @@ URL:
 * run ```npm run dev```
 * run ```npm run test```
 
-### faqs
+### Diagram
 
--
+![ER](public/img/ER-diagram.png)

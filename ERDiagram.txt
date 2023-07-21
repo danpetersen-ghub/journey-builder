@@ -1,0 +1,96 @@
+erDiagram
+    REQUESTS ||--|| PROGRAMS : has
+    PROGRAMS ||--|{ EMAILS : has
+    EMAILS ||--|{ EMAIL_MODULES : has
+    MODULES ||--|{ EMAIL_MODULES : used_in
+    PROGRAM_TEMPLATES ||--|{ EMAIL_TEMPLATES : has
+    EMAIL_TEMPLATES ||--|{ EMAIL_TEMPLATE_MODULES : has
+    MODULES ||--|{ EMAIL_TEMPLATE_MODULES : used_in
+    REQUESTS ||--o| PROGRAM_TEMPLATES : uses
+    REQUESTS ||--o| EMAIL_TEMPLATES : uses
+    REQUESTS {
+        int request_id
+        string requestor_name
+        string requestor_email
+        int program_id
+        datetime request_date
+        string status
+        string request_name
+        int program_template_id
+        int email_template_id
+    }
+    EMAILS {
+        int email_id
+        string email_name
+        int program_id
+        string target_audience
+        datetime send_date
+    }
+    PROGRAMS {
+        int program_id
+        string program_name
+        datetime start_date
+        datetime end_date
+    }
+    MODULES {
+        int module_id
+        string module_name
+        string module_html
+    }
+    EMAIL_MODULES {
+        int email_id
+        int module_id
+        int order
+        string modified_copy
+        string modified_image
+        string modified_url
+    }
+    PROGRAM_TEMPLATES {
+        int template_id
+        string template_name
+    }
+    EMAIL_TEMPLATES {
+        int template_id
+        string template_name
+        int program_template_id
+    }
+    EMAIL_TEMPLATE_MODULES {
+        int template_id
+        int module_id
+        int order
+        string default_copy
+        string default_image
+        string default_url
+    }
+
+
+erDiagram
+
+ASSETS ||--o{ ASSET_MODULES : has
+USERS  ||--o{  ASSETS : has
+    ASSETS {
+        int request_id
+        datetime request_date
+        string requestor_name
+        string requestor_email
+        enum approval_status
+        enum type
+        enum geo
+        enum region
+        enum team
+        string body
+        int template_id
+        int external_asset__id
+    }
+    ASSET_MODULES {
+        int module_id
+        datetime created_at
+        string module_name
+        string module_html
+    }
+    USERS {
+       int id
+       datetime created_at
+       string role
+       string team
+    }

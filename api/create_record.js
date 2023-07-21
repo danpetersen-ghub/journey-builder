@@ -87,33 +87,34 @@ router.get(
   dbRecord
 );
 
- function dbRecord(req, res, next) {
+function dbRecord(req, res, next) {
   let sql = `SELECT * FROM items;`;
-   DATABASE.query(sql, function (err, result) {
+  DATABASE.query(sql, function (err, result) {
     if (err) throw err;
     res.send(result);
   });
 }
 
-router.get('/item/:id', function(req, res) {
+router.get('/item/:id', function (req, res) {
   console.log(req.params);
 
- let sql = `SELECT * FROM items WHERE id = ${req.params.id};`;
+  let sql = `SELECT * FROM items WHERE id = ${req.params.id};`;
 
-   DATABASE.query(sql, function (err, result) {
-     if (err || !result[0]) {
-        console.log(err);
-        res.render('noItem',{});
-     } else {
-     console.log(result[0]);
-     res.render('item', result[0] );
-   }
-   });
+  DATABASE.query(sql, function (err, result) {
+    if (err || !result[0]) {
+      console.log(err);
+      res.render('noItem', {});
+    } else {
+      console.log(result[0]);
+      res.render('item', result[0]);
+    }
+  });
+});
 
-
- });
-
-//Add a new route for handling the PUT request. This route should update the record in the database with the new values when updating an existing record
+/*
+Add a new route for handling the PUT request. 
+This route should update the record in the database with the new values when updating an existing record
+*/
 router.put("/api/data/:id", function (req, res) {
   var sql = `UPDATE items SET column1 = "${req.body.column1}", column2 = "${req.body.column2}" WHERE id = ${req.params.id}`;
 
