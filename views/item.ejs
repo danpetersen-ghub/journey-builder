@@ -62,12 +62,18 @@
       <div class="content-container">
         <div id="login">
 
-          <h1>ItemId: <span id="id"><%= id %></span>
+          <h1>ItemId: <span id="id">
+              <%= id %>
+            </span>
           </h1>
+          <p>
+            requestor_name: <%- requestor_name %><br />
+              requestor_email: <%- requestor_email %><br />
+                email_name: <%- email_name %><br />
+                  createdDate: <%- createdDate %><br />
+          </p>
           <br />
           <hr />
-
-
           <p>
             Column1:
           <div id="field1" class="field">
@@ -81,24 +87,24 @@
           </div>
           </p>
 
-			<button id="edit-button">Edit</button>
+          <button id="edit-button">Edit</button>
 
-			<form id="edit-form" style="display: none;">
-			  <div id="editor1"></div><br /><br />
-			  <div id="editor2"></div><br /><br />
+          <form id="edit-form" style="display: none;">
+            <div id="editor1"></div><br /><br />
+            <div id="editor2"></div><br /><br />
 
-			  <button id="cancel-button" type="button">Cancel</button>
-			  <button id="save-button" type="button">Save</button>
-			</form>
+            <button id="cancel-button" type="button">Cancel</button>
+            <button id="save-button" type="button">Save</button>
+          </form>
 
-</head>
-<!--[if lt IE 7]>
+          </head>
+          <!--[if lt IE 7]>
           <p class="browsehappy">
             You are using an <strong>outdated</strong> browser. Please
             <a href="#">upgrade your browser</a> to improve your experience.
           </p>
         <![endif]-->
-<div class="container-fluid">
+          <!-- <div class="container-fluid">
   <div class="row">
     <div class="col-sm-2 col-md-2 col-lg-1">
       <div class="navbar">
@@ -147,8 +153,9 @@
       </div>
     </div>
   </div>
-</div>
-<script src="/src/itemScript.js"></script>
+</div> -->
+          <script src="/src/itemScript.js"></script>
 
-</body>
+          </body>
+
 </html>
