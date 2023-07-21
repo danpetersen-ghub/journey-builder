@@ -1,4 +1,3 @@
-//https://codezup.com/create-separate-route-file-node-js-mean-stack/
 const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
@@ -40,7 +39,6 @@ router.all("/api/data", function (req, res) {
 
 console.log("API Endpoint Available: http://127.0.0.1:3000/api/data");
 
-const data = require("../template.json");
 
 /* 
 @desc
