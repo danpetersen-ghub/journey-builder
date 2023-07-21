@@ -6,12 +6,9 @@ import { showEmailBriefForm } from './ui.mjs';
 export async function sendLoginCreds() {
     event.preventDefault();
 
-    const { value: username } = document.getElementById("username");
-    const { value: password } = document.getElementById("password");
-
     const payload = {
-        username,
-        password,
+        email: document.getElementById("username").value,
+        password: document.getElementById("password").value,
     };
 
     const headers = {
@@ -24,11 +21,11 @@ export async function sendLoginCreds() {
     };
 
     try {
-        const response = await fetch("/api/login", headers);
+        const response = await fetch("/auth/login", headers);
         const { success, message, data } = await response.json();
         document.getElementById("output").innerText = message;
 
-        if (success) {
+        if (message === "Login successful") {
             loadApplication(data);
         }
     } catch (error) {
