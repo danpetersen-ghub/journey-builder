@@ -37,6 +37,11 @@
         <div class="col-sm-2 col-md-2 col-lg-1">
             <div class="navbar">
                 <div class="navbox">
+                    <div class="navitem img">
+                        <a href="https://www.support.dandevelopment.uk/">
+                            <img class="logoImg" src="/img/Topbanner.png">
+                        </a>
+                    </div>
                     <div class="navitem">
                         <a href="/">
                             <i class="fas fa-home" aria-hidden="true"></i>
@@ -45,17 +50,6 @@
                     <div class="navitem">
                         <a href="https://www.support.dandevelopment.uk/">
                             <i class="far fa-question-circle" aria-hidden="true"></i>
-                        </a>
-                    </div>
-
-                    <div class="navitem">
-                        <a href="/">
-                            <i class="fa-solid fa-square-plus form"></i>
-                        </a>
-                    </div>
-                    <div class="navitem">
-                        <a href="/">
-                            <i class="fa-solid fa-table dashboard"></i>
                         </a>
                     </div>
                 </div>
@@ -67,15 +61,17 @@
 
 
                     <h1>Sign Up</h1>
-                    <form action="/auth/register" method="POST">
+                    <form onsubmit="handleRequest(event)">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required><br>
 
                         <label for="password">Password:</label>
                         <input type="password" id="password" name="password" required><br>
 
-                        <button type="submit">Sign Up</button>
+                        <button class="login-btn" type="submit">Sign Up</button>
                     </form>
+                    <div id="output"></div>
+
 
                 </div>
 
@@ -85,6 +81,49 @@
 </div>
 
 <script>
+    async function handleRequest(event) {
+        event.preventDefault();
+        const outputHTML = document.getElementById("output");
+
+        // Get the form data
+        const formData = new FormData(event.target);
+
+        // Convert the FormData to a plain JavaScript object
+        const formDataObject = {};
+        formData.forEach((value, key) => {
+            formDataObject[key] = value;
+        });
+
+        try {
+            const response = await fetch("/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json", // Set the content type to JSON
+                },
+                body: JSON.stringify(formDataObject), // Convert the data to JSON string
+            });
+
+            if (response.status == 201) {
+                // The registration was successful
+                const responseData = await response.json();
+                outputHTML.textContent = responseData.message;
+
+                // Redirect to the home page after 3 seconds
+                setTimeout(() => {
+                    window.location.href = "/"; // Replace "/" with the URL of your home page
+                }, 3000); // 3000 milliseconds (3 seconds)
+
+
+            } else {
+                // The registration failed
+                const errorData = await response.json();
+                outputHTML.textContent = errorData.error;
+            }
+        } catch (error) {
+            console.error("Error registering user:", error);
+            outputHTML.textContent = "Failed to register. Please try again later.";
+        }
+    }
 
 
 </script>

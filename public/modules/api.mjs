@@ -7,7 +7,7 @@ export async function sendLoginCreds() {
     event.preventDefault();
 
     const payload = {
-        email: document.getElementById("username").value,
+        email: document.getElementById("email").value,
         password: document.getElementById("password").value,
     };
 
@@ -44,9 +44,9 @@ export async function getAllRecords() {
     };
 
     try {
-        const response = await fetch("/api/all/data", headers);
+        const response = await fetch("/api/data", headers);
         const responseJSON = await response.json();
-        displayDataTable(responseJSON);
+        displayDataTable(responseJSON.data);
     } catch (error) {
         console.error("Error fetching all records:", error);
     }

@@ -24,3 +24,13 @@ Site: <https://hnkl-journey-builder-c2c613aec1b5.herokuapp.com/>
 ### Diagram
 
 ![ER](public/img/ER-diagram.png)
+
+### Login
+
+<admin@admin.com>
+qwerty
+
+or
+
+<user@google.com>
+zxcvbnm

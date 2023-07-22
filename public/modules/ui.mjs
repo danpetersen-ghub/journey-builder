@@ -8,9 +8,9 @@ export function displayDataTable(records) {
   for (var i = 0; i < records.length; i++) {
     tableRows += `<tr>
                             <th scope="row"><a href="/item/${records[i].id}">${records[i].id} </a></th>
-                            <td>${records[i].requestor_name}</td>
-                            <td>${records[i].requestor_email}</td>
-                            <td>${records[i].email_name}</td>
+                            <td>${records[i].requestor_name} </td>
+                            <td>${records[i].requestor_email}  </td>
+                            <td>${records[i].email_name} </td>
                             <td>${records[i].program_name}</td>
                             <td>
                               <span class="delete-icon" data-id="${records[i].id}" style="color: red;">Delete</span>
@@ -28,11 +28,11 @@ export function displayDataTable(records) {
                           <table class="table" id="data-table">
                           <thead>
                             <tr>
-                              <th scope="col" class="sortable" data-sort-key="id">#</th>
-                              <th scope="col" class="sortable" data-sort-key="requestor_name">Requestor Name</th>
-                              <th scope="col" class="sortable" data-sort-key="requestor_email">Requestor Email</th>
-                              <th scope="col" class="sortable" data-sort-key="email_name">Email Name</th>
-                              <th scope="col" class="sortable" data-sort-key="program_name">Program Name</th>
+                              <th scope="col" class="sortable" data-sort-key="id"># <i class="fa-solid fa-chevron-up fa-rotate-90"></i> </th>
+                              <th scope="col" class="sortable" data-sort-key="requestor_name">Requestor Name <i class="fa-solid fa-chevron-up fa-rotate-90"></i> </th>
+                              <th scope="col" class="sortable" data-sort-key="requestor_email">Requestor Email <i class="fa-solid fa-chevron-up fa-rotate-90"></i> </th>
+                              <th scope="col" class="sortable" data-sort-key="email_name">Email Name <i class="fa-solid fa-chevron-up fa-rotate-90"></i> </th>
+                              <th scope="col" class="sortable" data-sort-key="program_name">Program Name <i class="fa-solid fa-chevron-up fa-rotate-90"></i> </th>
                               <th scope="col">Actions</th>
                             </tr>
                           </thead>
@@ -50,10 +50,18 @@ export function displayDataTable(records) {
       let sortKey = this.dataset.sortKey;
       let sortOrder = this.dataset.sortOrder;
       sortTable(sortKey, sortOrder);
-      // switch the sort order for the next click
+
+      // Get the chevron icon element inside the header
+      const icon = this.querySelector('.chevron-icon');
+
+      // Toggle the 'rotated' class on the chevron icon element
+      icon.classList.toggle('rotated', sortOrder === 'desc');
+
+      // Switch the sort order for the next click
       this.dataset.sortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
     });
   });
+
 
   //shows and hides the delete text and warning
   document.querySelectorAll('.delete-icon').forEach(item => {

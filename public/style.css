@@ -147,3 +147,17 @@ a {
   padding: 20px;
   border: solid 2px gray;
 }
+
+/* CSS for the rotation animation */
+.rotate-icon {
+  transition: transform 0.3s ease;
+}
+
+.rotate-icon.rotated {
+  transform: rotate(90deg);
+}
+
+.fa-solid.fa-chevron-up.fa-rotate-90 {
+  font-size: 17px;
+  color: var(--col1);
+}

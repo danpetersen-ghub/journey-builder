@@ -22,14 +22,14 @@ export function sortTable(sortKey, sortOrder) {
     };
 
     //send data to api endpoint to get data
-    const response = fetch("/api/all/data", headers);
+    const response = fetch("/api/data", headers);
     console.log("Sent Req to: /api/all/data");
 
     //log out the response, then log response
     response
         .then((response) => response.json())
         .then((responseJSON) => {
-            let records = responseJSON;
+            let records = responseJSON.data;
             records.sort((a, b) => {
                 if (sortOrder === 'desc') {
                     if (a[sortKey] < b[sortKey]) return -1;

@@ -1,17 +1,13 @@
-//Install Express
 const express = require("express");
 const app = express();
-
-
 require("dotenv").config();
 
-//Templates
+// Templates
 const ejs = require("ejs");
 app.set('view engine', 'ejs');
 
-//Database
+// Database
 const mysql = require("mysql2/promise");
-
 const DATABASE = require("./database/connection");
 
 DATABASE.getConnection(function (err, a, b) {
@@ -19,37 +15,34 @@ DATABASE.getConnection(function (err, a, b) {
   console.log("Connected!");
 });
 
-//API
+// API
 const bodyParser = require("body-parser");
 const router = express.Router();
 
-//SERVER
-const port = process.env.PORT;
+// Server Port
+const port = process.env.PORT || 3000;
 
-//API Routes
-const APIRoutes = require("./api/create_record");
-// const APIRouteLogin = require("./api/login");
+// API Routes
+const APIRoutes = require("./api/dataController");
 const authRoutes = require("./api/login.js");
-const APIRouteDelete = require("./api/delete_record");
+const itemRoutes = require("./routes/itemRoutes");
+const signUpRoutes = require("./routes/signUpRoutes");
+// API Routes
+app.use("/api", APIRoutes);
+app.use("/auth", authRoutes);
+app.use("/item", itemRoutes);
+app.use("/sign-up", signUpRoutes);
 
-//route URL to index HTML in public folder
+
+// Route URL to index HTML in public folder
 app.use("", express.static(__dirname + "/public"));
 
-app.use("", APIRoutes);
-
-// app.use("", APIRouteLogin);
-app.use("/auth", authRoutes);
-
-app.use("", APIRouteDelete);
-
-//Send Index HTML
-app.get("", function (req, res) {
+// Send Index HTML
+app.get("/", function (req, res) {
   res.render("index");
 });
 
-//Go Live with Server
+// Go Live with Server
 app.listen(port, function () {
-  console.log(
-    `running: http://127.0.0.1:3000/ or ${process.env.CYPRESS_BASE_URL}`
-  );
+  console.log(`Server is running on http://127.0.0.1:${port}`);
 });

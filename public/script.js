@@ -24,8 +24,10 @@ export function loadApplication(data) {
     .addEventListener("click", showModules);
 }
 
-let loginButton = document.getElementById("submit");
+const loginButton = document.getElementById("login");
+console.log(loginButton);
+
 loginButton.addEventListener("click", function () {
-  console.log("submit hit");
+  console.log("Login Form Attempted");
   sendLoginCreds();
 });
