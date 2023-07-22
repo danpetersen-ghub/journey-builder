@@ -1,4 +1,4 @@
-import { sendLoginCreds, getAllRecords } from './modules/api.mjs';
+import { getAllRecords } from './modules/api.mjs';
 import { contentArea, addToNavUI, showRequestForm } from './modules/ui.mjs';
 import { initializeQuillEditor } from './modules/quill.mjs';
 import { showModules } from './modules/emailTemplates.mjs';
@@ -6,7 +6,7 @@ import { formNavItem, dashboardNavItem, showModulesNavItem } from './modules/nav
 
 console.log(`We are Live with Starter App..`);
 
-export function loadApplication(data) {
+function loadApplication() {
   contentArea();
   //displayDataTable(data);
   getAllRecords();
@@ -24,10 +24,4 @@ export function loadApplication(data) {
     .addEventListener("click", showModules);
 }
 
-const loginButton = document.getElementById("login");
-console.log(loginButton);
-
-loginButton.addEventListener("click", function () {
-  console.log("Login Form Attempted");
-  sendLoginCreds();
-});
+loadApplication();

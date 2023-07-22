@@ -22,16 +22,20 @@ const router = express.Router();
 // Server Port
 const port = process.env.PORT || 3000;
 
-// API Routes
+//  Routes
 const APIRoutes = require("./api/dataController");
 const authRoutes = require("./api/login.js");
 const itemRoutes = require("./routes/itemRoutes");
 const signUpRoutes = require("./routes/signUpRoutes");
-// API Routes
+const homeRoutes = require("./routes/homeRoutes");
+
+
 app.use("/api", APIRoutes);
 app.use("/auth", authRoutes);
 app.use("/item", itemRoutes);
 app.use("/sign-up", signUpRoutes);
+app.use("/home", homeRoutes);
+
 
 
 // Route URL to index HTML in public folder

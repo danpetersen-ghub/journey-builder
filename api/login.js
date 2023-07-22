@@ -29,11 +29,12 @@ router.post("/login", async (req, res) => {
     // Sign in with email and password
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const userRecord = userCredential.user;
-    // console.log(userRecord);
+    //console.log(userRecord);
 
     // Check if the login was successful
     if (userRecord) {
-      res.status(200).json({ message: "Login successful", user: userRecord });
+      res.status(200).json({ message: "Login successful", token: userRecord.accessToken });
+
     } else {
       res.status(401).json({ error: "Invalid credentials" });
     }

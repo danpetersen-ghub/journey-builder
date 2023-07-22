@@ -1,37 +1,37 @@
-import { loadApplication } from '../script.js';
+// import { loadApplication } from '../script.js';
 import { displayDataTable } from './ui.mjs';
 import { showEmailBriefForm } from './ui.mjs';
 
 // src/api.js
-export async function sendLoginCreds() {
-    event.preventDefault();
+// export async function sendLoginCreds() {
+//     event.preventDefault();
 
-    const payload = {
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value,
-    };
+//     const payload = {
+//         email: document.getElementById("email").value,
+//         password: document.getElementById("password").value,
+//     };
 
-    const headers = {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-    };
+//     const headers = {
+//         method: "POST",
+//         headers: {
+//             Accept: "application/json",
+//             "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(payload),
+//     };
 
-    try {
-        const response = await fetch("/auth/login", headers);
-        const { success, message, data } = await response.json();
-        document.getElementById("output").innerText = message;
+//     try {
+//         const response = await fetch("/auth/login", headers);
+//         const { success, message, data } = await response.json();
+//         document.getElementById("output").innerText = message;
 
-        if (message === "Login successful") {
-            loadApplication(data);
-        }
-    } catch (error) {
-        console.error("Error sending login credentials:", error);
-    }
-}
+//         if (message === "Login successful") {
+//             loadApplication(data);
+//         }
+//     } catch (error) {
+//         console.error("Error sending login credentials:", error);
+//     }
+// }
 
 
 export async function getAllRecords() {
