@@ -1,4 +1,4 @@
-import { createRecord, deleteRecord } from './api.mjs';
+import { createRecord, deleteRecord, updateRecord } from './api.mjs';
 import { sortOrders, sortTable } from './sortTable.mjs';
 
 export function displayDataTable(records) {
@@ -150,21 +150,39 @@ export function showRequestForm() {
         `;
   contentArea(FormHTML);
 
-  document.getElementById("create").addEventListener("click", function () {
+  // document.getElementById("create").addEventListener("click", function () {
+  //   let requestor_name = document.getElementById("requestor_name").value;
+  //   let requestor_email = document.getElementById("requestor_email").value;
+  //   let email_name = document.getElementById("email_name").value;
+  //   let program_name = document.getElementById("program_name").value;
+
+  //   createRecord(requestor_name, requestor_email, email_name, program_name).then((data) =>
+  //     showEmailBriefForm(data.id, data.requestor_name, data.requestor_email, data.email_name, data.program_name)
+  //   );
+
+
+  //   //showEmailBriefForm(newRecord.id, newRecord.requestor_name, newRecord.requestor_email, newRecord.email_name, newRecord.program_name);
+  // });
+
+  document.getElementById("create").addEventListener("click", async function () {
     let requestor_name = document.getElementById("requestor_name").value;
     let requestor_email = document.getElementById("requestor_email").value;
     let email_name = document.getElementById("email_name").value;
     let program_name = document.getElementById("program_name").value;
 
-    createRecord(requestor_name, requestor_email, email_name, program_name);
-    showEmailBriefForm(requestor_name, requestor_email, email_name, program_name);
+    const data = await createRecord(requestor_name, requestor_email, email_name, program_name)
+
+    console.log("id is: ", data.data.id)
+
+    await showEmailBriefForm(data.data.id, data.data.requestor_name, data.data.requestor_email, data.data.email_name, data.data.program_name);
+
   });
 
 }
 
-export function showEmailBriefForm(requestor_name, requestor_email, email_name, program_name) {
+export function showEmailBriefForm(id, requestor_name, requestor_email, email_name, program_name) {
   // ... code for showing the email brief form ...
-  contentArea();
+  // contentArea();
   let FormHTML = `
           <div class="container">
             <h2>Request Information</h2>
@@ -188,6 +206,7 @@ export function showEmailBriefForm(requestor_name, requestor_email, email_name, 
             </form>
       
             <h2>Email Brief</h2>
+            <span id="email-id" data-value="${id}">Email id:${id}</span>
             <form>
               <div class="mb-3">
                 <label class="form-label">Subject Line</label>
@@ -237,13 +256,14 @@ export function showEmailBriefForm(requestor_name, requestor_email, email_name, 
   });
 
   document.getElementById("save").addEventListener("click", function () {
+    let id = document.getElementById("email-id").dataset
     let email_name = document.getElementById("email_name").value;
     let program_name = document.getElementById("program_name").value;
     let subjectLine = quillSubjectLine.root.innerHTML;
     let preHeader = quillPreHeader.root.innerHTML;
     let email = document.getElementById("email").innerHTML;
 
-    createRecord(requestor_name, requestor_email, email_name, program_name, subjectLine, preHeader, email);
+    updateRecord(id, requestor_name, requestor_email, email_name, program_name, subjectLine, preHeader, email);
   });
 
 }

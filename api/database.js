@@ -23,12 +23,13 @@ function fetchAllRecords(callback) {
 
 // Function to update a record in the database by ID
 function updateRecordById(id, newData, callback) {
-    const { column1, column2 } = newData;
-    const sql = `UPDATE items SET column1 = ?, column2 = ? WHERE id = ?`;
-    const values = [column1, column2, id];
+    const { requestor_name, requestor_email, email_name, program_name, subjectLine, preHeader, email } = newData;
+    const sql = `UPDATE items SET requestor_name = ?, requestor_email = ?, email_name = ?, program_name = ?, subjectLine = ?, preHeader = ?, email = ? WHERE id = ?`;
+    const values = [requestor_name, requestor_email, email_name, program_name, subjectLine, preHeader, email, id];
 
     DATABASE.query(sql, values, callback);
 }
+
 
 // Function to delete a record from the database by ID
 function deleteRecord(id, callback) {
