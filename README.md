@@ -25,7 +25,7 @@ Site: <https://hnkl-journey-builder-c2c613aec1b5.herokuapp.com/>
 
 ![ER](public/img/ER-diagram.png)
 
-### Login
+### Logins
 
 <admin@admin.com>
 qwerty
