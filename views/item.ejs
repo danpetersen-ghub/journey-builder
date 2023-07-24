@@ -2,38 +2,35 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Starter App</title>
-  <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="/style.css" />
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-  <!--Fonts-->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Journey Builder</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
-  <!--Bootstrap-->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
 
-  <!--ICON-->
-  <script src="https://kit.fontawesome.com/a0886f7045.js" crossorigin="anonymous"></script>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
 
+    <!--ICON-->
+    <script src="https://kit.fontawesome.com/a0886f7045.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-
-  <!--Quill-->
-  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <!--Quill-->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
 </head>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-2 col-md-2 col-lg-1">
-      <div class="navbar">
-        <div class="navbox">
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2 col-md-2 col-lg-1">
+        <div class="navbar">
+          <div class="navbox">
           <div class="navitem img">
             <a href="https://www.support.dandevelopment.uk/">
               <img class="logoImg" src="/img/Topbanner.png">
@@ -61,105 +58,38 @@
             </a>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-sm-10 col-md-10 col-lg-11">
-      <div class="content-container">
-        <div id="login">
-
-          <h1>ItemId: <span id="id">
-              <%= id %>
-            </span>
-          </h1>
-          <p>
-            requestor_name: <%- requestor_name %><br />
-              requestor_email: <%- requestor_email %><br />
-                email_name: <%- email_name %><br />
-                  createdDate: <%- createdDate %><br />
-          </p>
-          <br />
-          <hr />
-          <p>
-            Column1:
-          <div id="field1" class="field">
-            <%- column1 %>
-          </div>
-          </p>
-          <p>
-            Column2:
-          <div id="field2" class="field">
-            <%- column2 %>
-          </div>
-          </p>
-
-          <button id="edit-button">Edit</button>
-
-          <form id="edit-form" style="display: none;">
-            <div id="editor1"></div><br /><br />
-            <div id="editor2"></div><br /><br />
-
-            <button id="cancel-button" type="button">Cancel</button>
-            <button id="save-button" type="button">Save</button>
-          </form>
-
-          </head>
-          <!--[if lt IE 7]>
-          <p class="browsehappy">
-            You are using an <strong>outdated</strong> browser. Please
-            <a href="#">upgrade your browser</a> to improve your experience.
-          </p>
-        <![endif]-->
-          <!-- <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-2 col-md-2 col-lg-1">
-      <div class="navbar">
-        <div class="navbox">
-          <div class="navitem">
-            <a href="/">
-              <i class="fas fa-home" aria-hidden="true"></i>
-            </a>
-          </div>
-          <div class="navitem">
-            <a href="https://www.support.dandevelopment.uk/">
-              <i class="far fa-question-circle" aria-hidden="true"></i>
-            </a>
-          </div>
-
-          <div class="navitem">
-            <a href="/">
-              <i class="fa-solid fa-square-plus form"></i>
-            </a>
-          </div>
-          <div class="navitem">
-            <a href="/">
-              <i class="fa-solid fa-table dashboard"></i>
-            </a>
-          </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-10 col-md-10 col-lg-11">
-      <div class="content-container">
-        <div class="margin-top" id="login">
+      <div class="col-sm-10 col-md-10 col-lg-11">
+        <div class="content-container">
+          <div class="margin-top">
+            <h1>Review Your Request</h1>
+            <hr>
+            <h3>Requestor Information</h3>
+            <p><strong>ID:</strong> <span id="id"><%- id %></span></p>
+            <p><strong>Name:</strong> <span id="requestor_name"><%- requestor_name %></span></p>
+            <p><strong>Email:</strong> <span id="requestor_email"><%- requestor_email %></span></p>
 
-          <h1>ItemId: <%= id %>
-          </h1>
-          <br />
-          <hr />
-
-          <p>Column1: <%= column1 %>
-          </p>
-          <p>Column2: <%= column2 %>
-          </p>
-
-
+            <h3>Request Details</h3>
+            <form id="edit-form">
+              <div class="form-group">
+                <label for="email_name">Email Name:</label>
+                <input type="text" id="email_name" class="form-control" value="<%- email_name %>">
+              </div>
+              <div class="form-group">
+                <label for="program_name">Program Name:</label>
+                <input type="text" id="program_name" class="form-control" value="<%- program_name %>">
+              </div>
+              <button id="cancel-button" type="button" class="btn btn-secondary mt-3">Cancel</button>
+              <button id="save-button" type="button" class="btn btn-primary mt-3">Save</button>
+            </form>
+          </div>
         </div>
-
       </div>
     </div>
   </div>
-</div> -->
-          <script src="/modules/itemScript.mjs"></script>
-          </body>
+
+  <script src="/modules/itemScript.mjs"></script>
+</body>
 
 </html>
