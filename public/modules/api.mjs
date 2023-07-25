@@ -78,13 +78,16 @@ export function createRecord(requestor_name, requestor_email, email_name, progra
 
     //log out the response, then log response
     response
-        .then((response) => response.json())
-        .then((responseJSON) => {
-            //{"Data":{}, "success": true, "message":"loremIpsum" }
-            console.log(responseJSON); // This will log the responseJSON to the console
-            // Display the newly created record instead of all records
+    .then((response) => response.json())
+    .then((responseJSON) => {
+        console.log('Response JSON:', responseJSON);
+        if (responseJSON.data) {
             showEmailBriefForm(responseJSON.data);
-        });
+        } else {
+            console.error('Data is undefined in the response');
+        }
+    });
+
 
 }
 

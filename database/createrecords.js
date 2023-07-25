@@ -8,24 +8,19 @@ const connection = mysql.createConnection({
   database: process.env.CLEARDB_DB_NAME,
 });
 
-connection.connect(function (err, a, b) {
+connection.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
 });
 
-var sql = `INSERT INTO items (column1, column2) VALUES ("abc", "cba")`;
+let requestor_name = "John Doe";
+let requestor_email = "john.doe@example.com";
+let email_name = "Email Name";
+let program_name = "Program Name";
 
-connection.query(sql, function (err, result) {
-  if (err) throw err;
-  console.log("1 record inserted");
-});
+var sql = `INSERT INTO items (requestor_name, requestor_email, email_name, program_name) VALUES (?, ?, ?, ?)`;
 
-let a = "qwerrtty1";
-let b = "qwerrtty1";
-
-var sql2 = `INSERT INTO items (column1, column2) VALUES ("${a}", "${b}")`;
-
-connection.query(sql2, function (err, result) {
+connection.query(sql, [requestor_name, requestor_email, email_name, program_name], function (err, result) {
   if (err) throw err;
   console.log("1 record inserted");
 });
