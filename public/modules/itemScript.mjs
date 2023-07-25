@@ -1,6 +1,8 @@
-function initializeQuillAndEventListeners() {
+import { getAllRecords } from './api.mjs';
+
+function initializeQuillAndEventListeners(getAllRecords) {
   document.getElementById("cancel-button").addEventListener("click", function () {
-    location.reload();
+    getAllRecords();
   });
 
   document.getElementById("save-button").addEventListener("click", function () {
@@ -20,11 +22,11 @@ function initializeQuillAndEventListeners() {
       return response.json();
     }).then(function (data) {
       console.log(data);
-      location.reload();
+      getAllRecords();
     });
   });
 }
 
 if (document.getElementById("cancel-button") && document.getElementById("save-button")) {
-  initializeQuillAndEventListeners();
+  initializeQuillAndEventListeners(getAllRecords);
 }
