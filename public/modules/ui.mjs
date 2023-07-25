@@ -245,10 +245,27 @@ export function showEmailBriefForm(id, requestor_name, requestor_email, email_na
       const moduleOrder = ['TopBorder', 'header-2', 'bannermodulev2', 'headingmodule', 'subheadingmodule', 'freetextmodule', 'ctamodule1', 'textwithimage5', 'footermodulv1', 'footermodulv2'];
 
       // Extract the modules in the specified order
-      const emailHTML = moduleOrder.map(id => doc.getElementById(id).outerHTML).join('');
+      const emailHTML = moduleOrder.map(id => doc.querySelector(`tr#${id}`).outerHTML).join('');
 
       // Display the email HTML in the "Email" field
-      document.getElementById('email').innerHTML = emailHTML;
+      // Display the email HTML in the "Email" field
+	  const emailContainer = document.getElementById('email');
+	  emailContainer.innerHTML = emailHTML;
+
+	  // Make the entire emailContainer div editable
+	  emailContainer.setAttribute('contenteditable', 'true');
+
+      // Add a click event listener to each module
+      moduleOrder.forEach(id => {
+		  const moduleContainer = emailContainer.querySelector(`tr#${id}`);
+		  if (moduleContainer) {
+			console.log(`Found module container for ID ${id}`);
+			// Make the module editable
+			moduleContainer.setAttribute('contenteditable', 'true');
+		  } else {
+			console.warn(`No module container found for ID ${id}`);
+		  }
+		});
     });
 
   document.getElementById("cancel").addEventListener("click", function () {
